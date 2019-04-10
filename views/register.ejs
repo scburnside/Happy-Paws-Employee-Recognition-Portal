@@ -1,0 +1,42 @@
+<% include partials/header %>
+
+<h1>CREATE AN ACCOUNT</h1>
+
+<form action="/users/register" method="POST">
+    <div class="form-group">
+        <label>First Name</label>
+        <input class="form-control" name="f_name" type="text">
+    </div>
+    <div class="form-group">
+        <label>Last Name</label>
+        <input class="form-control" name="l_name" type="text">
+    </div>
+    <div class="form-group">
+        <label >Email</label>
+        <input type="text" class="form-control" name="email">
+    </div>
+    <div class="form-group">
+        <label >Department</label>
+        <select class="form-control" name="department">
+            <option value = "">--Please select a department--</option>
+            <option value = "af">Accounting and Finance</option>
+            <option value = "dc">Daycare Attendants</option>
+            <option value = "hr">Human Resources</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label >Job Title</label>
+        <input type="text" class="form-control" name="job_title">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password">
+    </div>
+    <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" class="form-control" name="password2">
+    </div>
+    <button class="btn btn-dark" type="submit" value="submit">Create Account</button>
+</form>
+
+<% include partials/footer %>

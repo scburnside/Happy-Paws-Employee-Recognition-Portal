@@ -1,0 +1,25 @@
+{
+  "name": "capstone_project",
+  "version": "1.0.0",
+  "description": "Happy Paws Employee Recognition Portal",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/team-izar/happy-paws-erp.git"
+  },
+  "author": "RP SB MM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/team-izar/happy-paws-erp/issues"
+  },
+  "homepage": "https://gitlab.com/team-izar/happy-paws-erp#README",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
+}
