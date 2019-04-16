@@ -21,12 +21,8 @@ app.get('/', function(req, res){
 });
 
 // Routes to other files
-var users = require('./routes/users.js');
-app.use('/users', users);
-
-// Routes to Admin files
-var admin = require('./routes/admin.js');
-app.use('/users/admin', admin);
+app.use('/users', require('./routes/users.js')); // Routes for user login/registration 
+app.use('/users/admin', require('./routes/admin.js')); // Routes to Admin files
 
 
 app.listen(3000, function(){

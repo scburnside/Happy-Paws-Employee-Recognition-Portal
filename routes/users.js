@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { check, validationResult } = require('express-validator/check'); //middleware for express-validator
 
 // Route for user registration
 router.get('/register', function(req, res){
@@ -9,6 +10,44 @@ router.get('/register', function(req, res){
 
 	res.render('register', {page: page});
 })
+
+// Route for user login
+router.get('/login', function(req, res){
+	var page = {
+		title: "Login"
+	}
+
+	res.render('login', {page: page});
+})
+
+// Post route for new user registration
+router.post('/register', [
+	check('email', 'Invalid Email').isEmail(), //check email format
+	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
+	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
+		if (value !== req.body.password) {
+			throw new Error('Password confirmation does not match password');
+		} else return value;
+	}),
+	check('secQ1').custom((value, { req }) => { //ensure security questions are not the same
+		if (value === req.body.secQ2){
+			throw new Error('Security questions must be different');
+		} else return value;
+	})
+], function(req, res){
+
+	const err = validationResult(req); //get the errors
+
+	//if there is an error, display the error messages 
+	if(!err.isEmpty()){ 
+		var errors = err.array();
+		res.render('register', {
+			errors: errors, 
+			page: {title: 'Register'}
+		});
+	}
+	//console.log(req.body);
+});
 
 
 module.exports = router;
