@@ -1,9 +1,11 @@
 var express = require('express');
 var app = express();
+var mysql = require('./config/dbcon.js');
 var bodyParser = require('body-parser');
 
 // Load default view-engine
 app.set('view engine', 'ejs');
+app.set('mysql', mysql);
 
 // Body Parser Middleware setup
 app.use(bodyParser.urlencoded({extended: true}));
