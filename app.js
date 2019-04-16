@@ -26,7 +26,7 @@ app.use('/users', users);
 
 // Routes to Admin files
 var admin = require('./routes/admin.js');
-app.use('/admin', admin);
+app.use('/users/admin', admin);
 
 
 app.listen(3000, function(){
