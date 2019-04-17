@@ -13,7 +13,16 @@ const storage = multer.diskStorage({
 	}
 })
 
-const upload = multer({storage: storage});
+// Filter file setup for storing signatures
+const fileFilter = function(req, file, cb){
+	if(file.mimetype === 'image/png' || file.mimetype === 'image/jpeg'){ //store only jpeg and png images, reject all others 
+		cb(null, true);
+	} else {
+		cb(null, false);
+	}
+}
+
+const upload = multer({storage: storage, fileFilter: fileFilter});
 
 
 // Route for user registration
@@ -32,10 +41,6 @@ router.get('/login', function(req, res){
 	}
 
 	res.render('login', {page: page});
-})
-
-router.post('/', upload.single('productImage'), function(req, res, next){
-	console.log(req.file);
 })
 
 // Post route for new user registration
@@ -57,32 +62,41 @@ router.post('/register', upload.single('signature'), [
 	const err = validationResult(req); //get the errors
 	const { fName, lName, email, title, department, password, secQ1, secQ1Ans, secQ2, secQ2Ans } = req.body; //bring in body parameters 
 
-	//console.log(req.file);
+	var mysql = req.app.get("mysql");
+	mysql.pool.query('SELECT * FROM user WHERE email = ?', [email])
+	.then(results => {
+		var emailTaken = false;
+		if(results.length > 0){ //ensure user email is not already registered
+			emailTaken = true;
+		}
 
-	//if there is an error, display the error messages 
-	if(!err.isEmpty()){ 
-		var errors = err.array();
-		res.render('register', {
-			errors: errors, 
-			page: {title: 'Register'}
-		});
-	} else{
-	
-		//if no error, add all the user info into DB
-		var mysql = req.app.get('mysql');
-		var sql = "INSERT INTO user(fname, lName, email, password, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		var inserts = [fName, lName, email, password, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans];
-		sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-			if(error){
-				console.log(JSOM.stringify(error));
-				res.write(JSON.stringify(error));
-				res.end();
-			} else{
-				res.redirect('/users/login');
-			}
-		})
-	}
+		//if there is an error, display the error messages 
+		if(!err.isEmpty() || emailTaken){ 
+			var errors = err.array();
+			if(emailTaken){ errors.push({msg: "Email is already registered"}) }; //we have to manually push in this error
+			res.render('register', {
+				errors: errors, 
+				page: {title: 'Register'}
+			});
+		} else{
+		
+			//if there are no errors, then we can add all the user info into DB
+			var mysql = req.app.get('mysql');
+			var sql = "INSERT INTO user(fname, lName, email, password, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans, signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			var inserts = [fName, lName, email, password, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans, req.file.path];
+			sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+				if(error){
+					console.log(JSON.stringify(error));
+					res.write(JSON.stringify(error));
+					res.end();
+				} else{
+					res.redirect('/users/login');
+				}
+			})
+		}
+	})
 });
+
 
 
 module.exports = router;
