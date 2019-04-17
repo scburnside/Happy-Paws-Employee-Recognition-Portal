@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 
 // Load default view-engine
 app.set('view engine', 'ejs');
+
+// Load database
 app.set('mysql', mysql);
 
 // Body Parser Middleware setup
@@ -12,6 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Serve Public directory as a static file
 app.use(express.static('public'));
+//app.use('/public/signatures', express.static('public/signatures'));
 
 // Set up home route
 app.get('/', function(req, res){
