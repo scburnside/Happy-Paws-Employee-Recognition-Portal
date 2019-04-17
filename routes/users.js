@@ -1,6 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check'); //middleware for express-validator
+const multer = require('multer');
+
+// Middleware setup for multer
+const storage = multer.diskStorage({
+	destination: function(req, file, cb){
+		cb(null, './public/signatures'); // specify storage location for user signature images
+	},
+	filename: function(req, file, cb){
+		cb(null, Date.now() +  file.originalname); // specify file name to give signature
+	}
+})
+
+const upload = multer({storage: storage});
+
 
 // Route for user registration
 router.get('/register', function(req, res){
@@ -20,8 +34,12 @@ router.get('/login', function(req, res){
 	res.render('login', {page: page});
 })
 
+router.post('/', upload.single('productImage'), function(req, res, next){
+	console.log(req.file);
+})
+
 // Post route for new user registration
-router.post('/register', [
+router.post('/register', upload.single('signature'), [
 	check('email', 'Invalid Email').isEmail(), //check email format
 	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
@@ -38,6 +56,8 @@ router.post('/register', [
 
 	const err = validationResult(req); //get the errors
 	const { fName, lName, email, title, department, password, secQ1, secQ1Ans, secQ2, secQ2Ans } = req.body; //bring in body parameters 
+
+	//console.log(req.file);
 
 	//if there is an error, display the error messages 
 	if(!err.isEmpty()){ 
