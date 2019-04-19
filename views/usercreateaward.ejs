@@ -1,0 +1,155 @@
+<% include partials/header %>
+<% include partials/errorHandler %>
+
+<h1>Happy Paws Employee Portal</h1>
+<br>
+
+<h1>CREATE AN AWARD</h1>
+<br>
+
+
+<p>TODO</p>
+<br>
+<form action="/users/usermyprofile" method="GET">
+    <button class="btn btn-info btn-lg">Take a look at your profile</button>
+</form>
+<br>
+<br>
+<form action="/users/usercreateaward" method="GET">
+    <button class="btn btn-info btn-lg">Create an Award for a fellow Employee</button>
+</form>
+<br>
+<br>
+<form action="/users/userviewawards" method="GET">
+    <button class="btn btn-info btn-lg">Take a look at your awards</button>
+</form>
+
+<!--THIS PART MAY BE PART OF A FUNCTION TO GET THE LIST OF USER NAMES.
+<?php
+$link=mysqli_connect("localhost, "root, "");
+mysqli_select_db($link, "dropdown");
+?>
+-->
+
+<select>
+    
+    <!--
+    <?php
+    $res=mysqli_query($link, "select * from user");
+    while($row=mysqli_fetch_array($res))
+    {
+    ?>
+    <option> <?php echo $row[fName]; ?>  </option>
+    <$php}
+    }
+        
+    ?>
+-->
+</select>
+</form>
+
+
+<!--
+<form action="/users/register" method="POST" enctype="multipart/form-data">
+    <div class="form-group row">
+        <label for='fName' class='col-sm-2 col-form-label'>First Name:</label>
+        <div class='col-sm-10'>
+            <input class="form-control" name="fName" type="text" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='lname' class='col-sm-2 col-form-label'>Last Name:</label>
+        <div class='col-sm-10'>
+            <input class="form-control" name="lName" type="text" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='email' class='col-sm-2 col-form-label'>Email:</label>
+        <div class='col-sm-10'>
+            <input type="text" class="form-control" name="email" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='title' class='col-sm-2 col-form-label'>Job Title:</label>
+        <div class='col-sm-10'>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='department' class='col-sm-2 col-form-label'>Department:</label>
+        <div class='col-sm-10'>
+            <select class="form-control" name="department">
+                <option value = "Accounting and Finance">Accounting and Finance</option>
+                <option value = "Daycare Attendants">Daycare Attendants</option>
+                <option value = "Human Resources">Human Resources</option>
+                <option value = "Information Systems">Information Systems</option>
+                <option value = "Legal">Legal</option>
+                <option value = "Marketing">Marketing</option>
+                <option value = "Operations">Operations</option>
+                <option value = "Veterinary Care">Veterinary Care</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='password' class='col-sm-2 col-form-label'>Password:</label>
+        <div class='col-sm-10'>
+            <input type="password" class="form-control" name="password" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='password2' class='col-sm-2 col-form-label'>Confirm Password:</label>
+        <div class='col-sm-10'>
+            <input type="password" class="form-control" name="password2" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='secQ1' class='col-sm-2 col-form-label'>Security Question 1:</label>
+        <div class='col-sm-10'>
+            <select class="form-control" name="secQ1">
+                <option value = "What is your favorite food?">What is your favorite food?</option>
+                <option value = "What is your mother’s maiden name?">What is your mother’s maiden name?</option>
+                <option value = "What was the name of your first pet?">What was the name of your first pet?</option>
+                <option value = "Where did you go to high school/college?">Where did you go to high school/college?</option>
+                <option value = "What city were you born in?">What city were you born in?</option>
+                <option value = "Where is your favorite place to vacation?">Where is your favorite place to vacation?</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='secQ1Ans' class='col-sm-2 col-form-label'>Answer1:</label>
+        <div class='col-sm-10'>
+            <input type="text" class="form-control" name="secQ1Ans" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='secQ2' class='col-sm-2 col-form-label'>Security Question 2:</label>
+        <div class='col-sm-10'>
+            <select class="form-control" name="secQ2">
+                <option value = "What is your favorite food?">What is your favorite food?</option>
+                <option value = "What is your mother’s maiden name?">What is your mother’s maiden name?</option>
+                <option value = "What was the name of your first pet?">What was the name of your first pet?</option>
+                <option value = "Where did you go to high school/college?">Where did you go to high school/college?</option>
+                <option value = "What city were you born in?">What city were you born in?</option>
+                <option value = "Where is your favorite place to vacation?">Where is your favorite place to vacation?</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='secQ1Ans' class='col-sm-2 col-form-label'>Answer2:</label>
+        <div class='col-sm-10'>
+            <input type="text" class="form-control" name="secQ2Ans" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for='signature' class='col-sm-2 col-form-label'>Upload Signature:</label>
+        <div class='col-sm-10'>
+            <input type="file" name="signature" accept='image/png,image/jpeg' required>
+        </div>
+    </div>
+    <button class="btn btn-dark" type="submit" value="submit">Create Account</button>
+</form>
+-->
+
+
+
+<% include partials/footer %>
