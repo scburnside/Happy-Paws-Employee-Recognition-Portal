@@ -98,6 +98,7 @@ router.post('/register', upload.single('signature'), [
 					res.write(JSON.stringify(error));
 					res.end();
 				} else{
+                    req.flash('success', 'You have successfully registered! Please login to continue.')
 					res.redirect('/login');
 				}
 			})

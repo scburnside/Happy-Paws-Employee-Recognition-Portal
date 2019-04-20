@@ -2,6 +2,9 @@ var express = require('express');
 var app = express();
 var mysql = require('./config/dbcon.js');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+
+const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 // Load default view-engine
 app.set('view engine', 'ejs');
@@ -11,6 +14,26 @@ app.set('mysql', mysql);
 
 // Body Parser Middleware setup
 app.use(bodyParser.urlencoded({extended: true}));
+
+// Express-session Middleware setup
+app.use(session({
+    name: 'sid',
+    resave: false,
+    saveUninitialized: false,
+    secret: 'shh! its a secret!',
+    cookie: {
+        maxAge: TWO_HOURS,
+        sameSite: true,
+        secure: false
+    }
+}));
+
+// Express-messages Middleware setup
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
 // Serve Public directory as a static file
 app.use(express.static('public'));
