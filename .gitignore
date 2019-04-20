@@ -6,3 +6,6 @@ package-lock.json
 
 # Ignore DB file
 dbcon.js
+
+# Ignore signature file
+public/signatures/

@@ -16,17 +16,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 //app.use('/public/signatures', express.static('public/signatures'));
 
-// Set up home route
-app.get('/', function(req, res){
-	var page = {
-		title: "Home"
-	};
-
-	res.render('home', {page: page});
-});
-
 // Routes to other files
-app.use('/users', require('./routes/users.js')); // Routes for user login/registration 
+app.use('/', require('./routes/authentication.js')); //Routes for home and login/registration
+app.use('/users', require('./routes/users.js')); // Routes for User files
 app.use('/users/admin', require('./routes/admin.js')); // Routes to Admin files
 
 
