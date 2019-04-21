@@ -3,6 +3,10 @@ var app = express();
 var mysql = require('./config/dbcon.js');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var passport = require('passport');
+
+// Passport cofiguration
+require('./config/passport.js')(passport);
 
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 
@@ -27,6 +31,10 @@ app.use(session({
         secure: false
     }
 }));
+
+// Passport Middleware setup
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Express-messages Middleware setup
 app.use(require('connect-flash')());

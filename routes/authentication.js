@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator/check'); //middleware for express-validator
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 // Middleware setup for multer
 const storage = multer.diskStorage({
@@ -50,6 +51,20 @@ router.get('/login', function(req, res){
 	}
 
 	res.render('login', {page: page});
+})
+
+// Handler for Logout
+router.get('/logout', function(req, res, next){
+	req.logout();
+	req.flash('success', 'You have sucessfully logged out');
+	res.redirect('/login');
+
+})
+
+// Test route --RMR TO DELETE!!!
+router.get('/homepage', function(req, res){
+	console.log(req.user)
+	res.send('You are logged in!');
 })
 
 // Post route for new user registration
@@ -112,6 +127,15 @@ router.post('/register', upload.single('signature'), [
 		}
 	})
 });
+
+// Post route for login
+router.post('/login', function(req, res, next){
+	passport.authenticate('local', {
+		successRedirect: '/homepage',
+		failureRedirect: '/login', 
+		failureFlash: true
+	})(req, res, next);
+})
 
 
 

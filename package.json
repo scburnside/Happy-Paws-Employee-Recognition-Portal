@@ -4,7 +4,8 @@
   "description": "Happy Paws Employee Recognition Portal",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,11 @@
     "express-validator": "^5.3.1",
     "multer": "^1.4.1",
     "mysql": "^2.17.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "promise-mysql": "^3.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
   }
 }
