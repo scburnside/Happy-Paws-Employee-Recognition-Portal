@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check'); //middleware for express-validator
 const multer = require('multer');
+const bcrypt = require('bcryptjs');
 
 // Middleware setup for multer
 const storage = multer.diskStorage({
@@ -88,19 +89,25 @@ router.post('/register', upload.single('signature'), [
 			});
 		} else{
 		
-			//if there are no errors, then we can add all the user info into DB
-			var mysql = req.app.get('mysql');
-			var sql = "INSERT INTO user(fname, lName, email, password, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans, signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			var inserts = [fName, lName, email, password, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans, req.file.path];
-			sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-				if(error){
-					console.log(JSON.stringify(error));
-					res.write(JSON.stringify(error));
-					res.end();
-				} else{
-                    req.flash('success', 'You have successfully registered! Please login to continue.')
-					res.redirect('/login');
-				}
+			// if there are no errors, then we can add all the user info into DB
+			// first we need to hash pw before storing in DB
+			bcrypt.genSalt(10, function(err, salt){
+				bcrypt.hash(password, salt, function(err, hash){
+					if(err){ console.log(err); }
+					var mysql = req.app.get('mysql');
+					var sql = "INSERT INTO user(fname, lName, email, password, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans, signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					var inserts = [fName, lName, email, hash, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans, req.file.path];
+					sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+						if(error){
+							console.log(JSON.stringify(error));
+							res.write(JSON.stringify(error));
+							res.end();
+						} else{
+							req.flash('success', 'You have successfully registered! Please login to continue.')
+							res.redirect('/login');
+						}
+					})
+				})
 			})
 		}
 	})
