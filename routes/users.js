@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+router.get('/usermainmenu', function(req, res){
+	var page = {
+		title: "User Home"
+	}
+
+	res.render('userMainMenu', {page: page});
+})
+
 // Route for user profile
 router.get('/usermyprofile', function(req, res){
 	var page = {

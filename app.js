@@ -47,6 +47,12 @@ app.use(function (req, res, next) {
 app.use(express.static('public'));
 //app.use('/public/signatures', express.static('public/signatures'));
 
+// Set up global var for logged in user
+app.use(function(req, res, next){
+  res.locals.user = req.user || null;
+  next();
+})
+
 // Routes to other files
 app.use('/', require('./routes/authentication.js')); //Routes for home and login/registration
 app.use('/users', require('./routes/users.js')); // Routes for User files

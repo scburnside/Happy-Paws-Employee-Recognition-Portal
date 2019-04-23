@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator/check'); //middle
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const routePermission = require(`../config/route_permissions.js`);
 
 // Middleware setup for multer
 const storage = multer.diskStorage({
@@ -27,7 +28,7 @@ const fileFilter = function(req, file, cb){
 const upload = multer({storage: storage, fileFilter: fileFilter});
 
 // Home route
-router.get('/', function(req, res){
+router.get('/', routePermission.redirectMainMenu, function(req, res){
 	var page = {
 		title: "Home"
 	};
@@ -36,7 +37,7 @@ router.get('/', function(req, res){
 });
 
 // Route for user registration
-router.get('/register', function(req, res){
+router.get('/register', routePermission.redirectMainMenu, function(req, res){
 	var page = {
 		title: "Register"
 	}
@@ -45,7 +46,7 @@ router.get('/register', function(req, res){
 })
 
 // Route for user login
-router.get('/login', function(req, res){
+router.get('/login', routePermission.redirectMainMenu, function(req, res){
 	var page = {
 		title: "Login"
 	}
@@ -130,13 +131,26 @@ router.post('/register', upload.single('signature'), [
 
 // Post route for login
 router.post('/login', function(req, res, next){
-	passport.authenticate('local', {
-		successRedirect: '/homepage',
-		failureRedirect: '/login', 
-		failureFlash: true
-	})(req, res, next);
-})
+	if(req.body.isAdmin){
+		passport.authenticate('local', {
+			successRedirect: '/users/admin/adminmenu',
+			failureRedirect: '/login', 
+			failureFlash: true
+		})(req, res, next);
+	} else{
+		passport.authenticate('local', {
+			successRedirect: '/users/usermainmenu',
+			failureRedirect: '/login', 
+			failureFlash: true
+		})(req, res, next);
+	}
+});
 
+
+// Function for authorizing route access
+function redirectLogin(req, res, next){
+
+}
 
 
 module.exports = router;
