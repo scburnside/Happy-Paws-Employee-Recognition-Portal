@@ -6,18 +6,52 @@
 <h4>My Profile</h4>
 <br>
 
-<p>TODO</p>
+<table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">First Name:</th>
+        <td><%= user.fName %></td>
+      </tr>
+      <tr>
+        <th scope="row">Last Name:</th>
+        <td><%= user.lName %></td>
+      </tr>
+      <tr>
+        <th scope="row">Email:</th>
+        <td><%= user.email %></td>
+      </tr>
+      <tr>
+        <th scope="row">Account Created On:</th>
+        <td><%= user.createdAt %></td>
+      </tr>
+      <tr>
+        <th scope="row">Department:</th>
+        <td><%= user.department %></td>
+      </tr>
+      <tr>
+        <th scope="row">Tilte:</th>
+        <td><%= user.title %></td>
+      </tr>
+      <tr>
+        <th scope="row">Signature:</th>
+        <td></td>
+      </tr>
+    </tbody>
+</table>
 <br>
 
-<form action="/users/userresetpassword" method="GET">
-    <button class="btn btn-info btn-lg">Reset Your User Password</button>
-</form>
-<br>
-<br>
-<form action="/users/usereditprofile" method="GET">
-    <button class="btn btn-info btn-lg">Update Your User Profile</button>
-</form>
-<br>
+<div class='myprof'>
+    <button class="btn btn-info">Edit Profile</button>
+</div>
+
+<div class='myprof'>
+    <button class="btn btn-info">Reset Password</button>
+</div>
+
+<div class='myprof'>
+    <a href="/users/usermainmenu"><button class="btn btn-info">Back to Main Menu</button></a>
+</div>
+
 
 
 
