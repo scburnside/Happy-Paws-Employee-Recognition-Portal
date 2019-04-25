@@ -45,7 +45,7 @@ app.use(function (req, res, next) {
 
 // Serve Public directory as a static file
 app.use(express.static('public'));
-//app.use('/public/signatures', express.static('public/signatures'));
+app.use('/public/signatures', express.static('public/signatures'));
 
 // Set up global var for logged in user
 app.use(function(req, res, next){
