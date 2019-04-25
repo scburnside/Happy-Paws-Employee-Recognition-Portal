@@ -5,6 +5,7 @@ const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const routePermission = require(`../config/route_permissions.js`);
+const fs = require('fs');
 
 // Middleware setup for multer
 const storage = multer.diskStorage({
@@ -99,10 +100,13 @@ router.post('/register', upload.single('signature'), [
 		if(!err.isEmpty() || emailTaken){ 
 			var errors = err.array();
 			if(emailTaken){ errors.push({msg: "Email is already registered"}) }; //we have to manually push in this error
-			res.render('register', {
-				errors: errors, 
-				page: {title: 'Register'}
-			});
+			fs.unlink(req.file.path, (er) => {
+				if(er){ console.log(err); }
+				res.render('register', {
+					errors: errors, 
+					page: {title: 'Register'}
+				});
+			})
 		} else{
 		
 			// if there are no errors, then we can add all the user info into DB
