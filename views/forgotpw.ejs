@@ -1,0 +1,22 @@
+<% include partials/header %>
+
+<h1>Forgot Password?</h1>
+<br>
+
+<form action="/forgotpw" method="POST">
+    <div>
+        <label>Enter your Username or Email to find your account</label>
+        <input type="text" class="form-control" name="email">
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="isAdmin" value="true" id="adminCheck">
+        <label class="form-check-label" for="adminCheck">
+          I am an admin
+        </label>
+    </div>
+    <br>
+    <button class="btn btn-dark" type="submit" value="submit">Submit</button>
+</form>
+
+
+<% include partials/footer %>

@@ -69,6 +69,66 @@ router.get('/homepage', function(req, res){
 	res.send('You are logged in!');
 })
 
+// Get Route for Forgotten Password
+router.get('/forgotpw', routePermission.redirectMainMenu, function(req, res){
+	var page = {
+		title: "Forgot Pw"
+	}
+
+	res.render('forgotpw', {page: page});
+})
+
+// Post Route to find account to reset password
+router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
+	const { email, isAdmin } = req.body; //bring in body parameters
+	if(isAdmin){ //if user is in admin then we will search the admin table
+		var mysql = req.app.get("mysql");
+		mysql.pool.query('SELECT * FROM admin WHERE userName = ?', [email], function(err, results){
+			if(err){ console.log(err); }
+			if(results.length > 0){ //if the account exists, proceed to resetting pw
+				var page = {
+					title: "Forgot Pw"
+				}
+				var user = results[0];
+				res.render('confirmsq', {page, user});
+			} else { //if account does not exist, display error
+				req.flash('danger', 'There is no admin account with that username.')
+				res.redirect('/forgotpw');
+			}
+		})
+	} else{ //if user is not an admin then we will search the user table
+		var mysql = req.app.get("mysql");
+		mysql.pool.query('SELECT * FROM user WHERE email = ?', [email], function(err, results){
+			if(err){ console.log(err); }
+			if(results.length > 0){ //if the account exists, proceed to resetting pw
+				var page = {
+					title: "Confirm you Account"
+				}
+				var user = results[0];
+				res.render('confirmsq', {page, user});
+			} else { //if account does not exist, display error
+				req.flash('danger', 'There is no user account with that email.')
+				res.redirect('/forgotpw');
+			}
+		})
+	}
+})
+
+// Post route to confirm security question for forgotten pw
+router.post('/confirmsq', function(req, res){
+	//check to confirm answer to security question is correct
+	const { secQ1Ans, trueAns, adminId, userId, isAdmin } = req.body; //bring in body parameters
+	if(secQ1Ans == trueAns){ //if user answered seq question correctly, then proceed to resetting password
+		var page = {
+			title: "Reset PW"
+		}
+		res.render('resetpw', {page, user: req.body});
+	} else {
+		req.flash('danger', 'Incorrect answer.')
+		res.redirect('/forgotpw');
+	}
+})
+
 // Post route for new user registration
 router.post('/register', upload.single('signature'), [
 	check('email', 'Invalid Email').isEmail(), //check email format
