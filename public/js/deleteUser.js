@@ -3,7 +3,8 @@ function deleteUser(id){
         //url: '/manageuseraccounts/' + id,
         url: '/users/admin/manageuseraccounts/' + id,
         type: 'DELETE',
-        complete: function(result){
+        complete: function(result)
+        {
             window.location.reload();
         }
     })
