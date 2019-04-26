@@ -129,61 +129,6 @@ router.post('/confirmsq', function(req, res){
 	}
 })
 
-// Post route to reset forgotten pw to new pw
-router.post('/resetpw', [
-	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check new password length
-	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
-		if (value !== req.body.password) {
-			throw new Error('Password confirmation does not match password');
-		} else return value;
-	}),
-], function(req, res){
-	const err = validationResult(req); //get the errors
-	//if there is an error, display the error messages 
-	if(!err.isEmpty()){ 
-		var errors = err.array();
-		return res.render('resetpw', {
-			errors: errors, 
-			page: {title: 'Register'},
-			user: req.body
-		});
-	}
-
-	//encrypt new password
-	bcrypt.genSalt(10, function(err, salt){
-		bcrypt.hash(req.body.password, salt, function(err, hash){
-			if(err){ console.log(err); }
-			if(req.body.isAdmin == 1){ //if this is an admin user, update admin password
-				var mysql = req.app.get('mysql');
-				var query = "UPDATE admin SET password=? WHERE adminId=?";
-				var inserts = [hash, req.body.adminId];
-				sql = mysql.pool.query(query, inserts, function(err, results, fields){
-					if(err){
-						res.write(JSON.stringify(error));
-						res.end();
-					}else{
-						req.flash('success', 'Your password has been successfully reset. Sign in to continue.')
-						res.redirect('/login');
-					}
-				})
-			} else{ //if this is a normal user, update user password
-				var mysql = req.app.get('mysql');
-				var query = "UPDATE user SET password=? WHERE userId=?";
-				var inserts = [hash, req.body.userId];
-				sql = mysql.pool.query(query, inserts, function(err, results, fields){
-					if(err){
-						res.write(JSON.stringify(error));
-						res.end();
-					}else{
-						req.flash('success', 'Your password has been successfully reset. Sign in to continue.')
-						res.redirect('/login');
-					}
-				})
-			}
-		})
-	})
-})
-
 // Post route for new user registration
 router.post('/register', upload.single('signature'), [
 	check('email', 'Invalid Email').isEmail(), //check email format

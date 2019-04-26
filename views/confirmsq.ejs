@@ -8,7 +8,7 @@
         <label><%= user.secQ1 %></label>
         <input type="text" class="form-control" name="secQ1Ans" required>
     </div>
-    <% if(user.isAdmin == 1){ %>
+    <% if(user.isAdmin){ %>
         <input type='hidden' value='<%= user.adminId %>' name='adminId'>
     <% } else{ %>
         <input type='hidden' value='<%= user.userId %>' name='userId'>

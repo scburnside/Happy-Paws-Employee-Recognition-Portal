@@ -1,10 +1,9 @@
 <% include partials/header %>
-<% include partials/errorHandler %>
 
 <h1>Reset Password</h1>
 <br>
 
-<form action="/resetpw" method="POST">
+<form action="/forgotpw" method="POST">
     <div class="form-group row">
         <label for='password' class='col-sm-2 col-form-label'>New Password:</label>
         <div class='col-sm-10'>
@@ -17,13 +16,6 @@
             <input type="password" class="form-control" name="password2" required>
         </div>
     </div>
-    <% if(user.isAdmin == 1){ %>
-        <input type='hidden' value='<%= user.adminId %>' name='adminId'>
-    <% } else{ %>
-        <input type='hidden' value='<%= user.userId %>' name='userId'>
-    <% } %>
-    <input type='hidden' value='<%= user.isAdmin %>' name='isAdmin'>
-    <br>
     <button class="btn btn-dark" type="submit" value="submit">Reset Password</button>
 </form>
 
