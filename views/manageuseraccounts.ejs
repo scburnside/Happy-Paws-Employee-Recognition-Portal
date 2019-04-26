@@ -1,12 +1,46 @@
 <% include partials/header %>
+<% include partials/errorHandler %>
+
+<head>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    </style>
+</head>
 
 <h1>Happy Paws Employee Portal</h1><br>
 
 <h4>Manage User Accounts</h4><br>
 
-<p>TODO</p><br>
+<table style="width:100%">
+    <tr>
+        <th>User Id</th>
+        <th>First Name</th> 
+        <th>Last Name</th>
+        <th>Email</th> 
+        <th>Account Created On:</th>
+        <th>Title</th>
+        <th>Department</th> 
+        <th>Delete</th>
+    </tr>
+<% users.forEach(function(user)  { %>
+    <tr>
+        <td><%= user.userId %></td>
+        <td><%= user.fName %></td>
+        <td><%= user.lName %> </td>
+        <td><%= user.email %></td>
+        <td><%= user.createdAt %></td>
+        <td><%= user.title %></td>
+        <td><%= user.department %> </td>
+        <td><button onclick='deleteUser("<%= user.userId %>")'>Delete</button></td>
+        
 
+    </tr>
+<% }) %>
+</table>
+<br>
 <a class="btn btn-info btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
-
 
 <% include partials/footer %>
