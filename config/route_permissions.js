@@ -1,6 +1,6 @@
 module.exports ={
     ensureAdmin: function(req, res, next){
-        if(req,isAuthenticated()){
+        if(req.isAuthenticated()){
             if(req.user.isAdmin){
                 return next();
             }else{
@@ -13,7 +13,7 @@ module.exports ={
         res.redirect('/login');
     },
     ensureUser: function(req, res, next){
-        if(req,isAuthenticated()){
+        if(req.isAuthenticated()){
             if(!req.user.isAdmin){
                 return next();
             }else{

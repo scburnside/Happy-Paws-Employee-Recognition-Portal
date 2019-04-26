@@ -1,0 +1,12 @@
+.buttons {
+    padding: 5px;
+}
+
+.sig {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+#forgotpw {
+    margin-left: 10px;
+}
