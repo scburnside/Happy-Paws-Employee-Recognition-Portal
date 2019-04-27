@@ -38,12 +38,28 @@ router.delete('/manageuseraccounts/:id', function(req, res){
 			res.end();
 		}else{
 			req.flash('success', 'You have successfully deleted the user!')
-			//res.redirect('/users/admin/manageuseraccounts');	//Want to refresh the page
-			res.status(202);
-			//res.status(202).end();
+			res.status(202).end();
 		}
 	})
 })
+
+// Post route for updating user information
+router.post('/edituseraccount', function(req, res){
+	const { fName, lName, title, department } = req.body; //bring in body parameters
+	var mysql = req.app.get('mysql');
+	var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
+	var inserts = [fName, lName, title, department, req.user.userId];
+	sql = mysql.pool.query(query, inserts, function(err, results, fields){
+		if(err){
+			res.write(JSON.stringify(error));
+			res.end();
+		}else{
+			req.flash('success', 'User account has been updated')
+			res.redirect('/users/admin/manageuseraccounts');
+		}
+	})
+})
+
 
 
 // Route for Manage Admin Accounts
@@ -64,22 +80,6 @@ router.get('/analytics', function(req, res){
 
 	res.render('analytics', {page: page});
 })
-
-/* 
-router.post('/deleteuser', function(req, res, next){
-	var id = req.body.userId
-	var mysql = req.app.get("mysql");
-	mysql.pool.query('DELETE FROM user WHERE userId = ?', [userId])
-		if(error){
-			console.log(JSON.stringify(error));
-			res.write(JSON.stringify(error));
-			res.end();
-		} else{
-			req.flash('success', 'You have successfully deleted the user!')
-			res.redirect('/manageuseraccounts');	//Want to refresh the page
-	}
-}); */
-
 
 
 module.exports = router;
