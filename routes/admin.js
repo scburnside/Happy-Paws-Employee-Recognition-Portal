@@ -10,7 +10,7 @@ router.get('/adminmenu', function(req, res){
 	res.render('adminmenu', {page: page});
 })
 
-// Route for Manage User Accounts
+// Route for Manage User Accounts Page * Display Data
 router.get('/manageuseraccounts', function(req, res){
 	var page = { title: "Manage User Accounts"}; 
 	var mysql = req.app.get("mysql");
@@ -81,17 +81,7 @@ router.get('/edituseraccount/:id', function(req, res){
 	});
 })
 
-
-/* // Route for Manage Admin Accounts
-router.get('/manageadminaccounts', function(req, res){
-	var page = {
-		title: "Manage Admin Accounts"
-	}
-
-	res.render('manageadminaccounts', {page: page});
-}) */
-
-// Route for Manage User Accounts
+// Route to Manage Admins page & Display Data
 router.get('/manageadminaccounts', function(req, res){
 	var page = { title: "Manage Admin Accounts"}; 
 	var mysql = req.app.get("mysql");
@@ -104,6 +94,24 @@ router.get('/manageadminaccounts', function(req, res){
 		{page: page, 
 		admins:result});
 	});
+})
+
+// Route to Delete an Admin
+router.delete('/manageadminaccounts/:id', function(req, res){
+	var mysql = req.app.get('mysql');
+	var sql = "DELETE from admin WHERE adminId = ?";
+	var inserts = [req.params.id];
+	sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+		if(error){
+			console.log(JSON.stringify(error));
+			res.write(JSON.stringify(error));
+			//res.status(400);
+			res.end();
+		}else{
+			req.flash('success', 'You have successfully deleted the admin!')
+			res.status(202).end();
+		}
+	})
 })
 
 

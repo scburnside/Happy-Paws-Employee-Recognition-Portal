@@ -31,7 +31,7 @@
             <td><%= admin.createdAt %></td>
             <td><%= admin.title %></td>
             <td><%= admin.department %></td>
-
+            <td><button onclick='deleteAdmin("<%= admin.adminId %>")'>Delete</button></td>
         </tr>
     <% }) %>
     </table>
