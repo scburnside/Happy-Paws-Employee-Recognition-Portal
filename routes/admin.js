@@ -44,22 +44,42 @@ router.delete('/manageuseraccounts/:id', function(req, res){
 })
 
 // Post route for updating user information
-router.post('/edituseraccount', function(req, res){
+router.post('/edituseraccount/:id', function(req, res){
 	const { fName, lName, title, department } = req.body; //bring in body parameters
 	var mysql = req.app.get('mysql');
 	var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
-	var inserts = [fName, lName, title, department, req.user.userId];
+	var inserts = [fName, lName, title, department, req.params.id];
 	sql = mysql.pool.query(query, inserts, function(err, results, fields){
 		if(err){
+			console.log(JSON.stringify(error));
 			res.write(JSON.stringify(error));
 			res.end();
 		}else{
 			req.flash('success', 'User account has been updated')
-			res.redirect('/users/admin/manageuseraccounts');
+			res.redirect('/users/admin/manageuseraccounts'); //Go back to manage user accounts to see update in table
+			//res.status(202).end();
 		}
 	})
 })
 
+
+
+// Route for 1 User 
+router.get('/edituseraccount/:id', function(req, res){
+	var page = { title: "Edit User Account"}; 
+	var mysql = req.app.get("mysql");
+	var query = "SELECT * FROM user WHERE userId = ?";
+	var inserts = [req.params.id];
+	sql = mysql.pool.query(query, inserts, function(err, results, fields){
+		if(err){
+			console.log('err in display user table');
+			next(err);
+			return;}
+	res.render('edituseraccount', 
+		{page: page, 
+		user:results[0]}); //Dispay error if no results returned - TODO
+	});
+})
 
 
 // Route for Manage Admin Accounts
