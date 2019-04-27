@@ -82,13 +82,28 @@ router.get('/edituseraccount/:id', function(req, res){
 })
 
 
-// Route for Manage Admin Accounts
+/* // Route for Manage Admin Accounts
 router.get('/manageadminaccounts', function(req, res){
 	var page = {
 		title: "Manage Admin Accounts"
 	}
 
 	res.render('manageadminaccounts', {page: page});
+}) */
+
+// Route for Manage User Accounts
+router.get('/manageadminaccounts', function(req, res){
+	var page = { title: "Manage Admin Accounts"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query('SELECT * FROM admin', function(err, result){
+		if(err){
+			console.log('err in display admin table');
+			next(err);
+			return;}
+	res.render('manageadminaccounts', 
+		{page: page, 
+		admins:result});
+	});
 })
 
 

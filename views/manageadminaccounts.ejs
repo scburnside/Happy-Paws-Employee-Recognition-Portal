@@ -1,10 +1,41 @@
 <% include partials/header %>
+<% include partials/errorHandler %>
+
+<head>
+        <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        </style>
+    </head>
 
 <h1>Happy Paws Employee Portal</h1><br>
 
 <h4>Manage Admin Accounts</h4><br>
 
-<p>TODO</p><br>
+<table style="width:100%">
+        <tr>
+            <th>Admin Id</th>
+            <th>User Name</th> 
+            <th>Account Created On:</th>
+            <th>Title</th>
+            <th>Department</th> 
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    <% admins.forEach(function(admin)  { %>
+        <tr>
+            <td><%= admin.adminId %></td>
+            <td><%= admin.userName %></td>
+            <td><%= admin.createdAt %></td>
+            <td><%= admin.title %></td>
+            <td><%= admin.department %></td>
+
+        </tr>
+    <% }) %>
+    </table>
+    <br>
 
 <a class="btn btn-info btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
 
