@@ -3,41 +3,29 @@
 <h1>Happy Paws Employee Portal</h1>
 <br>
 
-<h4>Edit User Account</h4>
+<h4>Edit Admin Account</h4>
 <br>
 
-<form action="/users/admin/edituseraccount/<%= user.userId %>" method="POST">
+<form action="/users/admin/editadminaccount/<%= admin.adminId %>" method="POST">
     <div class="form-group row">
-        <label for='fName' class='col-sm-2 col-form-label'>First Name:</label>
+        <label for='userName' class='col-sm-2 col-form-label'>User Name:</label>
         <div class='col-sm-10'>
-            <input class="form-control" name="fName" type="text" value="<%= user.fName %>"  required>
+            <input class="form-control" name="userName" type="text" value="<%= admin.userName %>"  required>
         </div>
     </div>
-    <div class="form-group row">
-        <label for='lname' class='col-sm-2 col-form-label'>Last Name:</label>
-        <div class='col-sm-10'>
-            <input class="form-control" name="lName" type="text" value="<%= user.lName %>" required>
-        </div>
-    </div>
-    <fieldset disabled>
-        <div class="form-group row">
-            <label for='email' class='col-sm-2 col-form-label'>Email:</label>
-            <div class='col-sm-10'>
-                <input type="text" class="form-control" name="email" value="<%= user.email %>" required>
-            </div>
-        </div>
-    </fieldset>
+    
     <div class="form-group row">
         <label for='title' class='col-sm-2 col-form-label'>Job Title:</label>
         <div class='col-sm-10'>
-            <input type="text" class="form-control" name="title" value="<%= user.title %>" required>
+            <input type="text" class="form-control" name="title" value="<%= admin.title %>" required>
         </div>
     </div>
+
     <div class="form-group row">
         <label for='department' class='col-sm-2 col-form-label'>Department:</label>
         <div class='col-sm-10'>
-            <select class="form-control" name="department" value="<%= user.department %>">
-                <option value= "<%= user.department %>" selected="selected"><%= user.department %></option>
+            <select class="form-control" name="department" value="<%= admin.department %>">
+                <option value= "<%= admin.department %>" selected="selected"><%= admin.department %></option>
                 <option value = "Accounting and Finance">Accounting and Finance</option>
                 <option value = "Daycare Attendants">Daycare Attendants</option>
                 <option value = "Human Resources">Human Resources</option>
@@ -55,8 +43,10 @@
 </form>
 
 <div class='buttons'>
-    <a href="/users/admin/manageuseraccounts"><button class="btn btn-info">Back to Manage User Accounts</button></a>
+    <a href="/users/admin/manageadminaccounts"><button class="btn btn-info">Back to Manage Admin Accounts</button></a>
 </div>
+
+
 
 
 <% include partials/footer %>
