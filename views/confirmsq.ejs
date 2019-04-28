@@ -5,16 +5,16 @@
 <form action="/confirmsq" method="POST">
     <h5>Answer the following security question to reset your password:</h5>
     <div>
-        <label><%= user.secQ1 %></label>
+        <label><%= user_data.secQ1 %></label>
         <input type="text" class="form-control" name="secQ1Ans" required>
     </div>
-    <% if(user.isAdmin == 1){ %>
-        <input type='hidden' value='<%= user.adminId %>' name='adminId'>
+    <% if(user_data.isAdmin == 1){ %>
+        <input type='hidden' value='<%= user_data.adminId %>' name='adminId'>
     <% } else{ %>
-        <input type='hidden' value='<%= user.userId %>' name='userId'>
+        <input type='hidden' value='<%= user_data.userId %>' name='userId'>
     <% } %>
-    <input type='hidden' value='<%= user.secQ1Ans %>' name="trueAns">
-    <input type='hidden' value='<%= user.isAdmin %>' name='isAdmin'>
+    <input type='hidden' value='<%= user_data.secQ1Ans %>' name="trueAns">
+    <input type='hidden' value='<%= user_data.isAdmin %>' name='isAdmin'>
     <br> 
     <button class="btn btn-dark" type="submit" value="submit">Submit</button>
 </form>
