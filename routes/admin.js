@@ -220,6 +220,64 @@ router.get('/editadminaccount/:id', function(req, res){
 	});
 })
 
+// Get Route to Create New Admin Accounts
+router.get('/createadminaccount', function(req, res){
+	var page = {
+		title: "Create New Admin Account"
+	}
+
+	res.render('createadminaccount', {page: page});
+})
+
+// Post route for Creating New Admin Account
+router.post('/createadminaccount', upload.none(), [], function(req, res){
+
+	const err = validationResult(req); //get the errors
+	const { userName, password} = req.body; //bring in body parameters 
+
+	var mysql = req.app.get("mysql");
+	mysql.pool.query('SELECT * FROM admin WHERE userName = ?', [userName])
+	.then(results => {
+		var userNameTaken = false;
+		if(results.length > 0){ //Ensure user name is not already registered
+			userNameTaken = true;
+		}
+		//if there is an error, display the error messages 
+		if(!err.isEmpty() || userNameTaken){ 
+			var errors = err.array();
+			if(userNameTaken){ errors.push({msg: "That Username is Already Registered!"}) }; //we have to manually push in this error
+				res.render('createadminaccount', {
+					errors: errors, 
+					page: {title: 'Create New User Account'}
+				});
+			//})
+		} else{
+			// if there are no errors, then we can add all the user info into DB
+			// First we hardcode a temp password
+			const password = 'hpaws' + userName;   
+			// Then we need to hash pw before storing in DB
+			bcrypt.genSalt(10, function(err, salt){
+				bcrypt.hash(password, salt, function(err, hash){
+					if(err){ console.log(err); }
+					var mysql = req.app.get('mysql');
+					var sql = "INSERT INTO admin(userName, password, newAccount) VALUES (?, ?,'1')"; //newAccount flag needs to be set to 1
+					var inserts = [userName, hash];
+					sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+						if(error){
+							console.log(JSON.stringify(error));
+							res.write(JSON.stringify(error));
+							res.end();
+						} else{
+							req.flash('success', 'You Have Successfully Created a New Admin Account!')
+							res.redirect('/users/admin/manageadminaccounts');
+							res.status(202).end();
+						}
+					})
+				})
+			})
+		}
+	})
+}); 
 
 
 
