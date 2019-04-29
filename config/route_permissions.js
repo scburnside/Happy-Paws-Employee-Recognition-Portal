@@ -2,7 +2,13 @@ module.exports ={
     ensureAdmin: function(req, res, next){
         if(req.isAuthenticated()){
             if(req.user.isAdmin){
-                return next();
+                if(req.user.newAccount == 0){
+                    return next();
+                } else{
+                    req.flash('warning', "You must complete your registration before you can proceed.");
+                    res.redirect('/users/admin/completeaccount');
+                    return;
+                }
             }else{
                 req.flash('danger', 'Must be logged in as an admin to go there!');
                 res.redirect('/users/usermainmenu');
@@ -15,7 +21,13 @@ module.exports ={
     ensureUser: function(req, res, next){
         if(req.isAuthenticated()){
             if(!req.user.isAdmin){
-                return next();
+                if(req.user.accountComplete == 0){
+                    return next();
+                } else{
+                    req.flash('warning', "You must complete your registration before you can proceed.");
+                    res.redirect('/users/completeaccount');
+                    return;
+                }
             }else{
                 req.flash('danger', "Admins can't go there!");
                 res.redirect('/users/admin/adminmenu');

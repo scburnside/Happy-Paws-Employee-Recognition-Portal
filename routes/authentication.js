@@ -89,8 +89,8 @@ router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
 				var page = {
 					title: "Forgot Pw"
 				}
-				var user = results[0];
-				res.render('confirmsq', {page, user});
+				var user_data = results[0];
+				res.render('confirmsq', {page, user_data});
 			} else { //if account does not exist, display error
 				req.flash('danger', 'There is no admin account with that username.')
 				res.redirect('/forgotpw');
@@ -104,8 +104,8 @@ router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
 				var page = {
 					title: "Confirm you Account"
 				}
-				var user = results[0];
-				res.render('confirmsq', {page, user});
+				var user_data = results[0];
+				res.render('confirmsq', {page, user_data});
 			} else { //if account does not exist, display error
 				req.flash('danger', 'There is no user account with that email.')
 				res.redirect('/forgotpw');
@@ -122,7 +122,7 @@ router.post('/confirmsq', function(req, res){
 		var page = {
 			title: "Reset PW"
 		}
-		res.render('resetpw', {page, user: req.body});
+		res.render('resetpw', {page, user_data: req.body});
 	} else {
 		req.flash('danger', 'Incorrect answer.')
 		res.redirect('/forgotpw');
@@ -144,8 +144,8 @@ router.post('/resetpw', [
 		var errors = err.array();
 		return res.render('resetpw', {
 			errors: errors, 
-			page: {title: 'Register'},
-			user: req.body
+			page: {title: 'Reset PW'},
+			user_data: req.body
 		});
 	}
 
