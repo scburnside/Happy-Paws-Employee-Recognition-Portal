@@ -8,9 +8,66 @@ const multer  = require('multer')
 const upload = multer()
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const routePermission = require(`../config/route_permissions.js`);
+
+// Route for Admin to complete registration (if new account)
+router.get('/completeaccount', function(req, res){
+	var page = {
+		title: "Complete Registration"
+	}
+
+	res.render('completeadminaccount', {page: page});
+})
+
+// Post route for completing admin registration
+router.post('/completeaccount', [
+	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
+	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
+		if (value !== req.body.password) {
+			throw new Error('Password confirmation does not match password');
+		} else return value;
+	}),
+	check('secQ1').custom((value, { req }) => { //ensure security questions are not the same
+		if (value === req.body.secQ2){
+			throw new Error('Security questions must be different');
+		} else return value;
+	})
+], function(req, res){
+
+	const err = validationResult(req); //get the errors
+	const { username, title, department, password, secQ1, secQ1Ans, secQ2, secQ2Ans } = req.body; //bring in body parameters 
+
+	//if there is an error, display the error messages 
+	if(!err.isEmpty()){ 
+		var errors = err.array();
+		res.render('completeadminaccount', {
+			errors: errors, 
+			page: {title: 'Complete Registration'}
+		});
+	} else{ //update admin account to in DB
+		bcrypt.genSalt(10, function(err, salt){ //first hash the new password
+			bcrypt.hash(password, salt, function(err, hash){
+				if(err){ console.log(err); }
+				var mysql = req.app.get('mysql');
+				var sql = "UPDATE admin SET password=?, title=?, department=?, secQ1=?, secQ1Ans=?, secQ2=?, secQ2Ans=?, newAccount=? WHERE adminId=?";
+				var inserts = [hash, title, department, secQ1, secQ1Ans, secQ2, secQ2Ans, 0, req.user.adminId];
+				sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+					if(error){
+						console.log(JSON.stringify(error));
+						res.write(JSON.stringify(error));
+						res.end();
+					} else{
+						req.flash('success', 'You have successfully completed your registration!')
+						res.redirect('/users/admin/adminmenu');
+					}
+				})
+			})
+		})
+	}
+});
 
 // Route to render the Admin Main Menu
-router.get('/adminmenu', function(req, res){
+router.get('/adminmenu', routePermission.ensureAdmin, function(req, res){
 	var page = {
 		title: "Admin Main Menu"
 	}
@@ -19,7 +76,7 @@ router.get('/adminmenu', function(req, res){
 })
 
 // Route for Manage User Accounts Page & Display Data
-router.get('/manageuseraccounts', function(req, res){
+router.get('/manageuseraccounts', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Manage User Accounts"}; 
 	var mysql = req.app.get("mysql");
 	mysql.pool.query('SELECT * FROM user', function(err, result){
@@ -34,7 +91,7 @@ router.get('/manageuseraccounts', function(req, res){
 })
 
 // Route to Delete User (Manage User Accounts)
-router.delete('/manageuseraccounts/:id', function(req, res){
+router.delete('/manageuseraccounts/:id', routePermission.ensureAdmin, function(req, res){
 	var mysql = req.app.get('mysql');
 	var sql = "DELETE from user WHERE userId = ?";
 	var inserts = [req.params.id];
@@ -52,7 +109,7 @@ router.delete('/manageuseraccounts/:id', function(req, res){
 })
 
 // Post Route for Updating User Information (Manage User Accounts)
-router.post('/edituseraccount/:id', function(req, res){
+router.post('/edituseraccount/:id', routePermission.ensureAdmin, function(req, res){
 	const { fName, lName, title, department } = req.body; //bring in body parameters
 	var mysql = req.app.get('mysql');
 	var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
@@ -72,7 +129,7 @@ router.post('/edituseraccount/:id', function(req, res){
 
 
 // Route for 1 User (To Update User Info)
-router.get('/edituseraccount/:id', function(req, res){
+router.get('/edituseraccount/:id', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Edit User Account"}; 
 	var mysql = req.app.get("mysql");
 	var query = "SELECT * FROM user WHERE userId = ?";
@@ -89,7 +146,7 @@ router.get('/edituseraccount/:id', function(req, res){
 })
 
 // Get Route to Create New User Accounts
-router.get('/createuseraccount', function(req, res){
+router.get('/createuseraccount', routePermission.ensureAdmin, function(req, res){
 	var page = {
 		title: "Create New User Account"
 	}
@@ -98,7 +155,7 @@ router.get('/createuseraccount', function(req, res){
 })
 
 // Post route for Creating New User Account
-router.post('/createuseraccount', upload.none(), [
+router.post('/createuseraccount', routePermission.ensureAdmin, upload.none(), [
 	check('email', 'Invalid Email').isEmail(), //check email format
 ], function(req, res){
 
@@ -151,7 +208,7 @@ router.post('/createuseraccount', upload.none(), [
 
 
 // Route to Manage Admins Page & Display Data
-router.get('/manageadminaccounts', function(req, res){
+router.get('/manageadminaccounts', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Manage Admin Accounts"}; 
 	var mysql = req.app.get("mysql");
 	mysql.pool.query('SELECT * FROM admin', function(err, result){
@@ -166,7 +223,7 @@ router.get('/manageadminaccounts', function(req, res){
 })
 
 // Route to Delete an Admin
-router.delete('/manageadminaccounts/:id', function(req, res){
+router.delete('/manageadminaccounts/:id', routePermission.ensureAdmin, function(req, res){
 	var mysql = req.app.get('mysql');
 	var sql = "DELETE from admin WHERE adminId = ?";
 	var inserts = [req.params.id];
@@ -184,7 +241,7 @@ router.delete('/manageadminaccounts/:id', function(req, res){
 })
 
 // Post route for Updating Admin Information
-router.post('/editadminaccount/:id', function(req, res){
+router.post('/editadminaccount/:id', routePermission.ensureAdmin, function(req, res){
 	const { userName, title, department } = req.body; //bring in body parameters
 	var mysql = req.app.get('mysql');
 	var query = "UPDATE admin SET userName=?, title=?, department=? WHERE adminId=?";
@@ -204,7 +261,7 @@ router.post('/editadminaccount/:id', function(req, res){
 
 
 // Route for 1 Admin (to Update Admin Info)
-router.get('/editadminaccount/:id', function(req, res){
+router.get('/editadminaccount/:id', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Edit Admin Account"}; 
 	var mysql = req.app.get("mysql");
 	var query = "SELECT * FROM admin WHERE adminId = ?";
@@ -221,7 +278,7 @@ router.get('/editadminaccount/:id', function(req, res){
 })
 
 // Get Route to Create New Admin Accounts
-router.get('/createadminaccount', function(req, res){
+router.get('/createadminaccount', routePermission.ensureAdmin, function(req, res){
 	var page = {
 		title: "Create New Admin Account"
 	}
@@ -230,7 +287,7 @@ router.get('/createadminaccount', function(req, res){
 })
 
 // Post route for Creating New Admin Account
-router.post('/createadminaccount', upload.none(), [], function(req, res){
+router.post('/createadminaccount', routePermission.ensureAdmin, upload.none(), [], function(req, res){
 
 	const err = validationResult(req); //get the errors
 	const { userName, password} = req.body; //bring in body parameters 
@@ -282,7 +339,7 @@ router.post('/createadminaccount', upload.none(), [], function(req, res){
 
 
 // Route for Analytics & Reporting
-router.get('/analytics', function(req, res){
+router.get('/analytics', routePermission.ensureAdmin, function(req, res){
 	var page = {
 		title: "Analytics & Reporting"
 	}

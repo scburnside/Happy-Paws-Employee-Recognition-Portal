@@ -28,16 +28,7 @@ const fileFilter = function(req, file, cb){
 
 const upload = multer({storage: storage, fileFilter: fileFilter});
 
-// router.get('/checkaccountstatus', routePermission.ensureUser, function(req, res){
-// 	//check if this account needs to complete registration
-// 	if(req.user.accountComplete == 0){ //if it is already complete, then go to user main page
-// 		res.redirect('/users/usermainmenu');
-// 	} else { //if it is not complete, then user must complete before proceeding
-// 		req.flash('warning', 'You must complete your registration before you can proceed.');
-// 		res.redirect('/users/completeaccount');
-// 	}
-// })
-
+// Route to complete user registration (if new account created by admin)
 router.get('/completeaccount', function(req, res){
 	var page = {
 		title: "Complete Registration"
