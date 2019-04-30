@@ -75,13 +75,43 @@ router.get('/usercreateaward', routePermission.ensureUser, function(req, res){
 	res.render('usercreateaward', {page: page});
 })
 
+
+// Route to Delete User (Manage User Accounts)
+router.delete('/deleteAward/:id', routePermission.ensureUser, function(req, res){
+	var mysql = req.app.get('mysql');
+	var sql = "DELETE from awardGiven WHERE awardId = ?";
+	var inserts = [req.params.id];
+	sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+		if(error){
+			console.log(JSON.stringify(error));
+			res.write(JSON.stringify(error));
+			//res.status(400);
+			res.end();
+		}else{
+			req.flash('success', 'You Have Successfully Deleted The Award!')
+			res.status(202).end();
+		}
+	})
+})
+
 // Route for user to view previous awards given by him.
 router.get('/userviewawards', routePermission.ensureUser, function(req, res){
-	var page = {
-		title: "View Awards Given"
-	}
-
-	res.render('userviewawards', {page: page});
+	var page = { title: "View Awards Given" }
+	var mysql = req.app.get("mysql");
+	//console.log(req.user.userId);
+	var query = "SELECT * FROM awardGiven WHERE fromWhom = ?";
+	var inserts = [req.user.userId];
+	//var inserts = [2];
+	sql = mysql.pool.query(query, inserts, function(err, results, fields){
+		if(err){
+			console.log('Error in retrieving from awardGiven Table');
+			next(err);
+			return;}
+		console.log(results)
+		res.render('userviewawards', 
+			{page: page, 
+			user:results});
+	});
 })
 
 

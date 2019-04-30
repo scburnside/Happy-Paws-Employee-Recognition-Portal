@@ -5,27 +5,11 @@
 <br>
 <h1>CREATE AN AWARD</h1>
 <br>
-<br>
-<form action="/users/usermyprofile" method="GET">
-    <button class="btn btn-info btn-lg">Take a look at your profile</button>
-</form>
-<br>
-<br>
-<form action="/users/usercreateaward" method="GET">
-    <button class="btn btn-info btn-lg">Create an Award for a fellow Employee</button>
-</form>
-<br>
-<br>
-<form action="/users/userviewawards" method="GET">
-    <button class="btn btn-info btn-lg">Take a look at your awards</button>
-</form>
-<br>
-<br>
-<form action="/users/usercreateaward" method="POST" enctype="multipart/form-data">
+<form action="/users/usercreateaward" method="POST">
     <div class="form-group row">
-        <label for='awardID' class='col-sm-2 col-form-label'>Type of Award:</label>
+        <label for='awardName' class='col-sm-2 col-form-label'>Select Award:</label>
         <div class='col-sm-10'>
-            <select class="form-control" name="awardID">
+            <select class="form-control" name="awardName">
             <option value = "Employee of the month">Employee of the month</option>
             <option value = "Boss of the Month">Boss of the Month</option>
             <option value = "Janitor of the Month">Janitor of the Month</option>
@@ -35,42 +19,36 @@
         </div>
     </div>
     <div class="form-group row">
-            <label for='fName' class='col-sm-2 col-form-label'>From - First Name:</label>
-            <div class='col-sm-10'>
-                <input class="form-control" name="fromfName" type="text" required>
-            </div>
-        </div>
-    <div class="form-group row">
-        <label for='lName' class='col-sm-2 col-form-label'>From - Last Name:</label>
-        <div class='col-sm-10'>
-            <input class="form-control" name="fromlName" type="text" required><!--check that the 'for' is what is compared to the DB... or is it 'name'?-->
-        </div>
-    </div>
-    <div class="form-group row">
-            <label for='FROMemail' class='col-sm-2 col-form-label'>From Email:</label>
-            <div class='col-sm-10'>
-                <input type="text" class="form-control" name="FROMemail" required>
-            </div>
-    </div>    
-    <div class="form-group row">
             <label for='fName' class='col-sm-2 col-form-label'>Recipient First Name:</label>
             <div class='col-sm-10'>
-                <input class="form-control" name="tofName" type="text" required>
+                <input class="form-control" name="fName" type="text" required>
             </div>
         </div>
     <div class="form-group row">
         <label for='lName' class='col-sm-2 col-form-label'>Recipient Last Name:</label>
         <div class='col-sm-10'>
-            <input class="form-control" name="tolName" type="text" required><!--check that the 'for' is what is compared to the DB... or is it 'name'?-->
+            <input class="form-control" name="lName" type="text" required>
         </div>
     </div>
     <div class="form-group row">
         <label for='TOemail' class='col-sm-2 col-form-label'>Recipient Email:</label>
         <div class='col-sm-10'>
-            <input type="text" class="form-control" name="TOemail" required>
+            <input type="text" class="form-control" name="email" required>
         </div>
     </div>
     <button class="btn btn-dark" type="submit" value="submit">Create and Email Certificate</button>
 </form>
+
+<br>
+<form action="/users/usermyprofile" method="GET">
+    <button class="btn btn-info btn-lg">Take a look at your profile</button>
+</form>
+<br>
+<br>
+<form action="/users/userviewawards" method="GET">
+    <button class="btn btn-info btn-lg">Take a look at your awards</button>
+</form>
+<br>
+<br>
 
 <% include partials/footer %>
