@@ -6,20 +6,15 @@
 <h4>User Main Menu</h4>
 <br>
 
-<p>TODO</p>
-<br>
-
-
-<a href="/users/usermyprofile"><button class="btn btn-info btn-lg">Take a look at your profile</button></a>
-<br>
-<br>
-<form action="/users/usercreateaward" method="GET">
-    <button class="btn btn-info btn-lg">Create an Award for a fellow Employee</button>
-</form>
-<br>
-<form action="/users/userviewawards" method="GET">
-    <button class="btn btn-info btn-lg">Take a look at your awards</button>
-</form>
+<div class="buttons">
+    <a href="/users/usermyprofile"><button class="btn btn-info btn-lg">Take a Look At Your Profile</button></a>
+</div>
+<div class="buttons">
+    <a href="/users/usercreateaward"><button class="btn btn-info btn-lg">Create An Award For A Fellow Employee</button></a>
+</div>
+<div class="buttons">
+    <a href="/users/userviewawards"><button class="btn btn-info btn-lg">Take A Look At Your Awards</button></a>
+</div>
 
 
 <% include partials/footer %>
