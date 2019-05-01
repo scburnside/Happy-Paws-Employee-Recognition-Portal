@@ -1,14 +1,39 @@
 <% include partials/header %>
 
+<head>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    </style>
+</head>
 <h1>Happy Paws Employee Portal</h1>
 <br>
-
 <h4>User View Awards</h4>
 <br>
-
-<p>TODO</p>
 <br>
-
+<table style="width:100%">
+    <tr>
+        <th>Award ID</th>
+        <th>Date Created</th> 
+        <th>Recipient First name</th>
+        <th>Recipient Last name</th> 
+        <th>Recipient Email</th>
+    </tr>
+    <% user.forEach(function(user)  { %>
+    <tr>
+        <td><%= user.awardId %></td>
+        <td><%= user.dateGiven %></td>
+        <td><%= user.to_fName %> </td>
+        <td><%= user.to_lName %> </td>
+        <td><%= user.to_email %></td>
+        <td><button onclick='deleteAward("<%= user.awardId %>")'>Delete</button></td>
+    </tr>
+<% }) %>
+</table>
+<br>
+<br>
 <form action="/users/usermyprofile" method="GET">
     <button class="btn btn-info btn-lg">Take a look at your profile</button>
 </form>
@@ -18,10 +43,5 @@
     <button class="btn btn-info btn-lg">Create an Award for a fellow Employee</button>
 </form>
 <br>
-<br>
-<form action="/users/userviewawards" method="GET">
-    <button class="btn btn-info btn-lg">Take a look at your awards</button>
-</form>
-
 
 <% include partials/footer %>
