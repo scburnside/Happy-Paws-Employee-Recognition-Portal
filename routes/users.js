@@ -66,20 +66,20 @@ router.get('/usereditprofile', routePermission.ensureUser, function(req, res){
 	res.render('usereditprofile', {page: page});
 })
 
+// Post route for created awards
 router.post('/useraddaward', routePermission.ensureUser, function(req, res){
-	const { awardName,fName, lName, email } = req.body; //bring in body parameters
-	//console.log(req.body.awardName);
+	const { awardType, to_fName, to_lName, to_email } = req.body; //bring in body parameters
 	var mysql = req.app.get('mysql');
-	var query = "INSERT INTO awardGiven (awardId,fromWhom,to_fName,to_lName,to_email) VALUES ((SELECT awardId FROM award WHERE awardName = ?),(SELECT userId FROM user WHERE fName = ? and lName = ?),?,?,?)";
-	var inserts = [req.body.awardName,req.user.fName,req.user.lName,req.body.fName,req.body.lName,req.body.email];
+	var query = "INSERT INTO award (awardType, fromWhom, to_fName, to_lName, to_email) VALUES (?,?,?,?,?)";
+	var inserts = [awardType, req.user.userId, to_fName, to_lName, to_email];
 	sql = mysql.pool.query(query,inserts, function(err, results, fields){
 		if(err){
-			res.write(JSON.stringify(error));
+			res.write(JSON.stringify(err));
 			console.log("error in MySQL");
 			res.end();
 		}else{
 			req.flash('success', 'You awarded a teamate!')
-			res.redirect('/users/userMainMenu');
+			res.redirect('/users/userviewawards');
 		}
 	})
 })
@@ -94,7 +94,7 @@ router.get('/usercreateaward', routePermission.ensureUser, function(req, res){
 // Route to Delete Users given award
 router.delete('/deleteAward/:id', routePermission.ensureUser, function(req, res){
 	var mysql = req.app.get('mysql');
-	var sql = "DELETE from awardGiven WHERE awardId = ?";
+	var sql = "DELETE from award WHERE awardId = ?";
 	var inserts = [req.params.id];
 	sql = mysql.pool.query(sql, inserts, function(error, results, fields){
 		if(error){
@@ -113,19 +113,16 @@ router.delete('/deleteAward/:id', routePermission.ensureUser, function(req, res)
 router.get('/userviewawards', routePermission.ensureUser, function(req, res){
 	var page = { title: "View Awards Given" }
 	var mysql = req.app.get("mysql");
-	//console.log(req.user.userId);
-	var query = "SELECT * FROM awardGiven WHERE fromWhom = ?";
+	var query = "SELECT * FROM award WHERE fromWhom = ?";
 	var inserts = [req.user.userId];
-	//var inserts = [2];
-	sql = mysql.pool.query(query, inserts, function(err, results, fields){
+	var sql = mysql.pool.query(query, inserts, function(err, results, fields){
 		if(err){
 			console.log('Error in retrieving from awardGiven Table');
-			next(err);
-			return;}
-		console.log(results)
+			return next(err);
+		}
 		res.render('userviewawards', 
 			{page: page, 
-			user:results});
+			user_awards: results});
 	});
 })
 
