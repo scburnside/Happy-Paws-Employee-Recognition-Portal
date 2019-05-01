@@ -9,3 +9,6 @@ dbcon.js
 
 # Ignore signature file
 public/signatures/
+
+# ignore cdrtificates
+publie/blank_certificates
