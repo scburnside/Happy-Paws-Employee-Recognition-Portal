@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs'); //middleware for encrypting pw
 const routePermission = require(`../config/route_permissions.js`);
 const multer = require('multer');
 const fs = require('fs');
+const sendAward = require('../config/emailcon.js');
 
 // Middleware setup for multer
 const storage = multer.diskStorage({
@@ -78,8 +79,20 @@ router.post('/useraddaward', routePermission.ensureUser, function(req, res){
 			console.log("error in MySQL");
 			res.end();
 		}else{
-			req.flash('success', 'You awarded a teamate!')
-			res.redirect('/users/userviewawards');
+			//store all award details in an object
+			//console.log(results);
+			var awardInfo = {
+				awardId: results.insertId,
+				to_email: to_email,
+				to_name: to_fName + " " + to_lName,
+				from_name: req.user.fName + " " + req.user.lName
+			}
+
+			//send the award
+			sendAward(awardInfo, function(){
+				req.flash('success', 'Award has been successfully created and sent to the email provided!')
+				res.redirect('/users/userviewawards');
+			})
 		}
 	})
 })
@@ -113,7 +126,7 @@ router.delete('/deleteAward/:id', routePermission.ensureUser, function(req, res)
 router.get('/userviewawards', routePermission.ensureUser, function(req, res){
 	var page = { title: "View Awards Given" }
 	var mysql = req.app.get("mysql");
-	var query = "SELECT * FROM award WHERE fromWhom = ?";
+	var query = "SELECT awardId, awardType, to_fName, to_lName, to_email, DATE_FORMAT(dateCreated, '%b-%d-%Y') AS 'dateCreated'  FROM award WHERE fromWhom = ?";
 	var inserts = [req.user.userId];
 	var sql = mysql.pool.query(query, inserts, function(err, results, fields){
 		if(err){
