@@ -23,7 +23,7 @@
 
         // Create the data table
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'User');
+        data.addColumn('string', 'Department');
         data.addColumn('number', 'Awards');
 
         <% 
@@ -31,8 +31,8 @@
         awards.forEach(function(award) 
         { 
             var awardItem = new Array();
-            awardItem.push( award.fName + ' ' + award.lName);
-            awardItem.push( award.IdCount);
+            awardItem.push( award.department);
+            awardItem.push( award.deptCount);
             awardData.push(awardItem);
         }) %>
         var awardJSON = <%- JSON.stringify(awardData); %>
@@ -40,7 +40,7 @@
         data.addRows(awardJSON);
 
         // Set chart options
-        var options = {'title':'Awards Created by Each User',
+        var options = {'title':'Awards Created by Department',
                        'width':800,
                        'height':500};
 
@@ -56,7 +56,7 @@
 
         <h4>Analytics & Reporting</h4><br>
         
-        <p>Filter Award Data By</p><br>
+        <p>Filter Award Data By:</p>
         <a class="btn btn-info" href="/users/admin/analytics" role="button">Users</a>
         <a class="btn btn-info" href="/users/admin/analyticsDept" role="button">Department</a>
         <a class="btn btn-info" href="/users/admin/analyticsAwardType" role="button">AwardType</a>
@@ -66,25 +66,6 @@
     
   </body>
 
-
-  <!-- Test able to compare data set - Delete Me -->
-  <!-- <table style="width:100%">
-    <tr>
-        <th>User Id</th>
-        <th>Number of Awards</th>
-        <th>First Name</th> 
-        <th>Last Name</th>
-    
-    </tr>
-<% awards.forEach(function(award)  { %>
-    <tr>
-        <td><%= award.userId %></td>
-        <td><%= award.IdCount %></td>
-        <td><%= award.fName %></td>
-        <td><%= award.lName %> </td>
-    </tr>
-<% }) %>
-</table> -->
 <br>
 
 
