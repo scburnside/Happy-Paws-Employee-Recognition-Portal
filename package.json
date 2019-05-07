@@ -36,6 +36,6 @@
     "promise-mysql": "^3.3.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.11"
+    "nodemon": "^1.19.0"
   }
 }
