@@ -338,14 +338,54 @@ router.post('/createadminaccount', routePermission.ensureAdmin, upload.none(), [
 
 
 
-// Route for Analytics & Reporting
+// Route for Analytics & Reporting - Display Num of awards created by each user
 router.get('/analytics', routePermission.ensureAdmin, function(req, res){
-	var page = {
-		title: "Analytics & Reporting"
-	}
-
-	res.render('analytics', {page: page});
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query('SELECT userId, COUNT(*) AS IdCount, fName, lName FROM award INNER JOIN user ON fromWhom = userId GROUP BY userId ORDER BY IdCount DESC;', function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	
+	res.render('analytics', 
+		{page: page, 
+		awards:result});
+	});
 })
+
+// Route for Analytics & Reporting - Display Num of awards created by each Department
+router.get('/analyticsDept', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query('SELECT userId, COUNT(*) AS IdCount, fName, lName FROM award INNER JOIN user ON fromWhom = userId GROUP BY userId ORDER BY IdCount DESC;', function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	
+	res.render('analyticsDept', 
+		{page: page, 
+		awards:result});
+	});
+})
+
+// Route for Analytics & Reporting - Display Num of awards created by each Award Type
+router.get('/analyticsAwardType', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query('SELECT userId, COUNT(*) AS IdCount, fName, lName FROM award INNER JOIN user ON fromWhom = userId GROUP BY userId ORDER BY IdCount DESC;', function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	
+	res.render('analyticsAwardType', 
+		{page: page, 
+		awards:result});
+	});
+})
+
 
 
 module.exports = router;
