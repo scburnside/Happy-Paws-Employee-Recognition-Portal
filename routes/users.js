@@ -40,7 +40,7 @@ router.get('/completeaccount', function(req, res){
 
 router.get('/usermainmenu', routePermission.ensureUser, function(req, res){
 	var page = {
-		title: "User Home"
+		title: "Main Menu"
 	}
 
 	res.render('userMainMenu', {page: page});
