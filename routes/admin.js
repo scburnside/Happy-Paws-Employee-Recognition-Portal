@@ -374,7 +374,7 @@ router.get('/analyticsDept', routePermission.ensureAdmin, function(req, res){
 router.get('/analyticsAwardType', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Analytics & Reporting"}; 
 	var mysql = req.app.get("mysql");
-	mysql.pool.query('SELECT userId, COUNT(*) AS IdCount, fName, lName FROM award INNER JOIN user ON fromWhom = userId GROUP BY userId ORDER BY IdCount DESC;', function(err, result){
+	mysql.pool.query('SELECT awardType, COUNT(*) AS typeCount FROM award INNER JOIN user ON fromWhom = userId GROUP BY awardType ASC;', function(err, result){
 		if(err){
 			console.log('err in display award table');
 			next(err);
