@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs'); //middleware for encrypting pw
 const routePermission = require(`../config/route_permissions.js`);
 const multer = require('multer');
 const fs = require('fs');
+const proj_dir = require('path').join(__dirname, '../'); //get the project dir file path
+const generateAward = require('../config/awardConfig/generateAward.js');
 const sendAward = require('../config/emailcon.js');
 
 // Middleware setup for multer
@@ -80,22 +82,58 @@ router.post('/useraddaward', routePermission.ensureUser, function(req, res){
 			res.end();
 		}else{
 			//store all award details in an object
-			//console.log(results);
 			var awardInfo = {
 				awardId: results.insertId,
+				awardType: awardType,
 				to_email: to_email,
 				to_name: to_fName + " " + to_lName,
-				from_name: req.user.fName + " " + req.user.lName
+				to_lName: to_lName,
+				from_name: req.user.fName + " " + req.user.lName,
+				from_title: req.user.title,
+				userSig: (proj_dir + req.user.signature).replace(/\\/g,"/")
 			}
+			createAward(req, awardInfo, function(){
+				req.flash('success', 'Award has been successfully created and sent to the email provided!');
+			 	res.redirect('/users/userviewawards');
+			});
 
 			//send the award
-			sendAward(awardInfo, function(){
-				req.flash('success', 'Award has been successfully created and sent to the email provided!')
-				res.redirect('/users/userviewawards');
-			})
+			// sendAward(awardInfo, function(){
+			// 	req.flash('success', 'Award has been successfully created and sent to the email provided!')
+			// 	res.redirect('/users/userviewawards');
+			// })
 		}
 	})
 })
+
+// This is the driver function to create an award and then send it to the recipient's email
+function createAward(req, awardInfo, cb){
+	//first get the date the award was created and store it in the awardInfo object
+	var mysql = req.app.get('mysql');
+	var query = "SELECT DATE_FORMAT(dateCreated, '%b-%d-%Y') AS 'dateCreated'  FROM award WHERE awardId = ?";
+	var inserts = [awardInfo.awardId];
+	var sql = mysql.pool.query(query,inserts, function(err, results, fields){
+		if(err){
+			res.write(JSON.stringify(err));
+			console.log("error in MySQL");
+			res.end(); 
+		} else{
+			awardInfo.createdDate = results[0].dateCreated;
+			// call function to generate the pdf award certificate using latex
+			generateAward(awardInfo, function(){
+				//Once award generation is complete, call function to send the pdf certificate to the recipient's email
+				sendAward(awardInfo, function(err){
+					if(err){ console.log(err); }
+					else { 
+						// we're all done and now we call the callback function
+						console.log("Email sent!");
+						cb();
+					 }
+				});
+			});
+		}
+	})
+}
 
 // Route for user to create an award for another person.
 router.get('/usercreateaward', routePermission.ensureUser, function(req, res){

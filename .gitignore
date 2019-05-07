@@ -10,5 +10,8 @@ dbcon.js
 # Ignore signature file
 public/signatures/
 
+# Ignore award pdfs
+awards/
+
 # ignore cdrtificates
 publie/blank_certificates
