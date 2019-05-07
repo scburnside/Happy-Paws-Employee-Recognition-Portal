@@ -12,21 +12,21 @@
 <br>
 <h4>User View Awards</h4>
 <br>
-<br>
 <% if(user_awards.length == 0){ %>
     <p>No awards to display</p>
 <% } else{ %>
     <table style="width:100%">
         <tr>
-            <th>Award ID</th>
+            <th>Award Type</th>
             <th>Date Created</th> 
-            <th>Recipient First name</th>
-            <th>Recipient Last name</th> 
+            <th>Recipient First Name</th>
+            <th>Recipient Last Name</th> 
             <th>Recipient Email</th>
+            <th>Delete</th>
         </tr>
         <% user_awards.forEach(function(award)  { %>
         <tr>
-            <td><%= award.awardId %></td>
+            <td><%= award.awardType %></td>
             <td><%= award.dateCreated %></td>
             <td><%= award.to_fName %> </td>
             <td><%= award.to_lName %> </td>

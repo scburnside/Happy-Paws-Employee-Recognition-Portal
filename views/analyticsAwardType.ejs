@@ -23,7 +23,7 @@
 
         // Create the data table
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'User');
+        data.addColumn('string', 'Award Type');
         data.addColumn('number', 'Awards');
 
         <% 
@@ -31,8 +31,8 @@
         awards.forEach(function(award) 
         { 
             var awardItem = new Array();
-            awardItem.push( award.fName + ' ' + award.lName);
-            awardItem.push( award.IdCount);
+            awardItem.push( award.awardType);
+            awardItem.push( award.typeCount);
             awardData.push(awardItem);
         }) %>
         var awardJSON = <%- JSON.stringify(awardData); %>
@@ -40,7 +40,7 @@
         data.addRows(awardJSON);
 
         // Set chart options
-        var options = {'title':'Awards Created by Each User',
+        var options = {'title':'Awards Created by Award Type',
                        'width':800,
                        'height':500};
 
@@ -63,30 +63,9 @@
 
     <!-- <Div that holds the bar chart -->
     <div id="chart_div"></div>
-
-    <p>TODO:  Insert Pie Chart for Users that have created awards vs Users that have never created an award.</p>
     
   </body>
 
-
-  <!-- Test able to compare data set - Delete Me -->
-  <!-- <table style="width:100%">
-    <tr>
-        <th>User Id</th>
-        <th>Number of Awards</th>
-        <th>First Name</th> 
-        <th>Last Name</th>
-    
-    </tr>
-<% awards.forEach(function(award)  { %>
-    <tr>
-        <td><%= award.userId %></td>
-        <td><%= award.IdCount %></td>
-        <td><%= award.fName %></td>
-        <td><%= award.lName %> </td>
-    </tr>
-<% }) %>
-</table> -->
 <br>
 
 
