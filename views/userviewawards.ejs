@@ -15,12 +15,12 @@
 <% if(user_awards.length == 0){ %>
     <p>No awards to display</p>
 <% } else{ %>
-    <table style="width:100%">
+    <table class="table">
         <tr>
-            <th>Award Type</th>
+            <th>Award Name</th>
             <th>Date Created</th> 
-            <th>Recipient First Name</th>
-            <th>Recipient Last Name</th> 
+            <th>Recipient Name</th>
+            <!--<th>Recipient Last Name</th> -->
             <th>Recipient Email</th>
             <th>Delete</th>
         </tr>
@@ -28,18 +28,18 @@
         <tr>
             <td><%= award.awardType %></td>
             <td><%= award.dateCreated %></td>
-            <td><%= award.to_fName %> </td>
-            <td><%= award.to_lName %> </td>
+            <td><%= award.to_fName %> <%= award.to_lName %> </td>
+            <!--<td><%= award.to_lName %> </td>-->
             <td><%= award.to_email %></td>
-            <td><button onclick='deleteAward("<%= award.awardId %>")'>Delete</button></td>
+            <td><button class="table-button" onclick='deleteAward("<%= award.awardId %>")'>Delete</button></td>
         </tr>
     <% }) %>
     </table>
 <% } %>
 
 <br>
-<div class='buttons'>
-    <a href="/users/usermainmenu"><button class="btn btn-info">Back to Main Menu</button></a>
+<div class="centered-buttons">
+    <a href="/users/usermainmenu"><button class="button">Back to Main Menu</button></a>
 </div>
 
 <% include partials/footer %>
