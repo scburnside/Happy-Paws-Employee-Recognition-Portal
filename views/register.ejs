@@ -1,5 +1,4 @@
 <% include partials/header %>
-<% include partials/errorHandler %>
 
 <h3 class="page-subtitle text-center">CREATE AN ACCOUNT</h3>
 <br>
@@ -8,6 +7,8 @@
         <div class="col-md-10">
             <div class="card mb-8">
                 <div class="card-body">
+                    <%- messages('message', locals) %>
+                    <% include partials/errorHandler %>
                     <form action="/register" method="POST" enctype="multipart/form-data">
                         <div class="form-group row">
                             <label for='fName' class='col-sm-2 col-form-label'>First Name:</label>
