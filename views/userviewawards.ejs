@@ -11,7 +11,6 @@
 </head>
 <h1>Happy Paws Employee Portal</h1>
 <br>
-<h4>User View Awards</h4>
 <br>
 <% if(user_awards.length == 0){ %>
     <p>No awards to display</p>
@@ -30,7 +29,6 @@
             <td><%= award.awardType %></td>
             <td><%= award.dateCreated %></td>
             <td><%= award.to_fName %> <%= award.to_lName %> </td>
-            <!--<td><%= award.to_lName %> </td>-->
             <td><%= award.to_email %></td>
             <td><button class="table-button" onclick='deleteAward("<%= award.awardId %>")'>Delete</button></td>
         </tr>

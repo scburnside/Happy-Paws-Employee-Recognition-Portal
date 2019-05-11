@@ -1,15 +1,15 @@
 
 body { 
   background-color: oldlace; 
+  box-shadow: 0px 55px 10px 0px rgba(0,0,0,0.9) inset;
 }
 
-/*888*/
 .table {
   width: 100%;
   text-align: center;
   border-collapse: separate;
   border-spacing: 0;
-  margin:0;
+  border:none;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -31,10 +31,14 @@ body {
 .table tr th,
 .table tr td {
   border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: none;
   border-top: none;
   border-bottom: none;
   padding: 5px;
+}
+
+.table tr:last-child td {
+  border-bottom: 1px solid black;
 }
 
 .table tr th:first-child,
@@ -47,23 +51,27 @@ body {
   border-bottom: none;
 }
 
-  /* top-left border-radius */
-.table tr:first-child th:first-child {
+.table tr td:last-child{
+  border-right: 1px solid black;
+}
+
+.table tr:first-child th:first-child {/* top-left border-radius */
   border-top-left-radius: 6px;
 }
   
-  /* top-right border-radius */
- .table tr:first-child th:last-child {
+ .table tr:first-child th:last-child,
+ .table tr:first-child td:last-child {/* top-right border-radius */
   border-top-right-radius: 6px;
+  border-right: 1px solid black;
+  border-top: 1px solid  black;
 }
-  
-  /* bottom-left border-radius */
-.table tr:last-child td:first-child {
+
+.table tr:last-child td:first-child,
+.table tr:last-child th:first-child {/* bottom-left border-radius */
   border-bottom-left-radius: 6px;
 }
-  
-  /* bottom-right border-radius */
-.table  tr:last-child td:last-child {
+
+.table tr:last-child td:last-child {/* bottom-right border-radius */
   border-bottom-right-radius: 6px;
 }
 
@@ -80,7 +88,7 @@ body {
   box-shadow: inset 0px 2px 3px rgba(255, 255, 255, 0.616);
 }
 
-.centered-buttons {
+.centered-buttons {/* div's with this class are centered on the page*/
   text-align: center;
   width:100%;
   margin:0;
@@ -100,6 +108,12 @@ body {
   box-shadow: inset 0px 2px 5px rgba(255, 255, 255, 0.616);
 }
 
+.button:hover, 
+.button:focus{/*this class turns this color on hover and onClick*/
+  background: green;
+  color: white;
+}
+/*
 .sig {
   max-height: 150px;
   max-width: 150px;
@@ -107,4 +121,138 @@ body {
 
 #forgotpw {
   margin-left: 10px;
+}*/
+
+#background-image {
+  border: 2px solid black;
+  padding: 25px;
+  height: 400px;
+  width: 100%;
+  background-position: center; /* Center the image */
+  background: url(../site_images/home_page_banner.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.register-form {
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  /*position: relative;*/
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea,
+#contact button[type="submit"] {
+  font: 400 12px/16px Arial, Helvetica, sans-serif;
+}
+
+#contact {
+  background: whitesmoke;
+  padding: 25px;
+  margin: 40px 0;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.9), 0 2px 2px 0 rgba(0, 0, 0, 0.9);
+}
+
+#contact h3 {
+  display: block;
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+#contact h4 {
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+fieldset {
+  border: medium none !important;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  background: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+}
+
+#contact input[type="text"]:hover,
+#contact input[type="email"]:hover,
+#contact input[type="tel"]:hover,
+#contact input[type="url"]:hover,
+#contact textarea:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #aaa;
+}
+
+#contact textarea {
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+/*
+#contact button[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: rgb(128, 123, 127);
+  color: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#contact button[type="submit"]:hover {
+  background: #43A047;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#contact button[type="submit"]:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}*/
+
+.copyright {
+  text-align: center;
+}
+
+#contact input:focus,
+#contact textarea:focus {
+  outline: 0;
+  border: 1px solid #aaa;
+}
+
+::-webkit-input-placeholder {
+  color: #888;
+}
+
+:-moz-placeholder {
+  color: #888;
+}
+
+::-moz-placeholder {
+  color: #888;
+}
+
+:-ms-input-placeholder {
+  color: #888;
 }

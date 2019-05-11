@@ -3,18 +3,17 @@
 
 <h1>Happy Paws Employee Portal</h1>
 <br>
-
-<h4>Welcome, User!</h4>
+<br>
 <br>
 
-<div class="buttons">
-    <a href="/users/usermyprofile"><button class="btn btn-info btn-lg">My Profile</button></a>
-</div>
-<div class="buttons">
-    <a href="/users/usercreateaward"><button class="btn btn-info btn-lg">Create A New Award</button></a>
-</div>
-<div class="buttons">
-    <a href="/users/userviewawards"><button class="btn btn-info btn-lg">View Previous Awards</button></a>
+<h3 style="text-align:center;">Welcome, <%= user.fName %>! %></h3>
+<br>
+<br>
+
+<div class="centered-buttons">
+    <a href="/users/usermyprofile"><button class="button">My Profile</button></a>&nbsp;&nbsp;
+    <a href="/users/usercreateaward"><button class="button">Create A New Award</button></a>&nbsp;&nbsp;
+    <a href="/users/userviewawards"><button class="button">View Previous Awards</button></a>
 </div>
 
 

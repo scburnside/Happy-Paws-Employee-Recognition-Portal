@@ -1,8 +1,78 @@
 <% include partials/header %>
 
-<h3 class="page-subtitle text-center">CREATE AN ACCOUNT</h3>
-<br>
+<h3 style="text-align:center">CREATE AN ACCOUNT</h3>
+<div style="text-align:center">
+    <a href="/login">Already Registered?</a>
+</div>
+<div class="register-form">  
+        <form action="/register" id="contact" method="POST" enctype="multipart/form-data">
+            <h3>New User Registration</h3>
+            <h4>Please Fill All Fields</h4>
+            <fieldset>
+                <input placeholder="First Name" type="text" tabindex="1" name="fName" required autofocus>
+            </fieldset>
+            <fieldset>
+                <input placeholder="Last Name" type="text" tabindex="2" name="lName" required autofocus>
+            </fieldset>          
+            <fieldset>
+                <input placeholder="Email" type="email" tabindex="3" name="email" required>
+            </fieldset>
+            <fieldset>
+                <input placeholder="Job Title" type="text" tabindex="4" name="title" required>
+            </fieldset>
+            <fieldset>
+                <select name="department" tabindex="5">
+                    <!--<option value = "Which Department?">        Department              </option>-->
+                    <option value = "Accounting and Finance">   Accounting and Finance  </option>
+                    <option value = "Daycare Attendants">       Daycare Attendants      </option>
+                    <option value = "Human Resources">          Human Resources         </option>
+                    <option value = "Information Systems">      Information Systems     </option>
+                    <option value = "Legal">                    Legal                   </option>
+                    <option value = "Marketing">                Marketing               </option>
+                    <option value = "Operations">               Operations              </option>
+                    <option value = "Veterinary Care">          Veterinary Care         </option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <input placeholder="Password" type="password" tabindex="6" name="password"required>
+            </fieldset>
+            <fieldset>
+                <input placeholder="Confirm Password" type="password" tabindex="7" name="password2"required>
+            </fieldset>
+            <fieldset>
+                <select name="secQ1" tabindex="8">
+                    <option value = "What is your favorite food?">              What is your favorite food?             </option>
+                    <option value = "What is your mother’s maiden name?">       What is your mother’s maiden name?      </option>
+                    <option value = "What was the name of your first pet?">     What was the name of your first pet?    </option>
+                    <option value = "Where did you go to high school?">         Where did you go to high school/college?</option>
+                    <option value = "What city were you born in?">              What city were you born in?             </option>
+                    <option value = "Where is your favorite vacation spot?">    Where is your favorite vacation spot?   </option>
+                </select>
+            </fieldset>
+            <fieldset>
+                    <input placeholder="Answer Security Question #1 Here." type="text" tabindex="9" name="secQ1Ans" required>
+            </fieldset>
+            <fieldset>
+                    <select name="secQ2" tabindex="10">
+                    <option value = "What is your favorite food?">              What is your favorite food?             </option>
+                    <option value = "What is your mother’s maiden name?">       What is your mother’s maiden name?      </option>
+                    <option value = "What was the name of your first pet?">     What was the name of your first pet?    </option>
+                    <option value = "Where did you go to high school?">         Where did you go to high school/college?</option>
+                    <option value = "What city were you born in?">              What city were you born in?             </option>
+                    <option value = "Where is your favorite vacation spot?">    Where is your favorite vacation spot?   </option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <input placeholder="Must be different than Security Question #1." type="text" tabindex="11" name="secQ2Ans" required>
+            </fieldset>
+            <label>Upload Signature:</label>
+                <input type="file" name="signature" accept='image/png,image/jpeg' tabindex="12" required>
+            <button class="button" type="submit" value="submit" tabindex="13">Create Account</button>
+        </form>
+        <br><br><br><br>
+      </div>
 
+<!--
 <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card mb-8">
@@ -108,12 +178,9 @@
                         <button class="btn btn-dark" type="submit" value="submit">Create Account</button>
                     </form>
                 </div>
-                <div class="card-footer">
-                    <a href="/login">Already Registered? Login.</a>
-                </div>
             </div>
         </div>
     </div>
     <br>
-
+-->
 <% include partials/footer %>

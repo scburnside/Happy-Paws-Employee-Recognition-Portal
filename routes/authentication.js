@@ -202,7 +202,7 @@ router.post('/register', upload.single('signature'), [
 
 	const err = validationResult(req); //get the errors
 	const { fName, lName, email, title, department, password, secQ1, secQ1Ans, secQ2, secQ2Ans } = req.body; //bring in body parameters 
-
+	//console.log(reg.body);
 	var mysql = req.app.get("mysql");
 	mysql.pool.query('SELECT * FROM user WHERE email = ?', [email])
 	.then(results => {

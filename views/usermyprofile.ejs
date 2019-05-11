@@ -4,11 +4,16 @@
 <h1>Happy Paws Employee Portal</h1>
 <br>
 
-<h4>My Profile</h4>
+<h4>Your Profile</h4>
+<div class='centered-buttons'>
+  <a href="/users/usermainmenu"><button class="button">Back to Main Menu</button></a>&nbsp;&nbsp;
+  <a href="/users/usereditprofile"><button class="button">Edit Profile</button></a>&nbsp;&nbsp;
+  <a href="/users/userresetpassword"><button class="button">Change Password</button></a>
+</div>
+<br>
 <br>
 
 <table class="table">
-    <tbody>
       <tr>
         <th scope="row">First Name:</th>
         <td><%= user.fName %></td>
@@ -37,22 +42,22 @@
         <th scope="row">Signature:</th>
         <td><img class='sig' src="<%= sig_url %>"></td>
       </tr>
-    </tbody>
 </table>
 <br>
-
-<div class='buttons'>
-    <a href="/users/usereditprofile"><button class="btn btn-info">Edit Profile</button></a>
+<!--
+<div class='centered-buttons'>
+    <a href="/users/usereditprofile"><button class="button">Edit Profile</button></a>
 </div>
-
-<div class='buttons'>
-    <a href="/users/userresetpassword"><button class="btn btn-info">Change Password</button></a>
+<br>
+<div class='centered-buttons'>
+    <a href="/users/userresetpassword"><button class="button">Change Password</button></a>
 </div>
-
-<div class='buttons'>
-    <a href="/users/usermainmenu"><button class="btn btn-info">Back to Main Menu</button></a>
+<br>
+<div class='centered-buttons'>
+    <a href="/users/usermainmenu"><button class="button">Back to Main Menu</button></a>
 </div>
-
+<br>
+-->
 
 
 
