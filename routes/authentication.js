@@ -117,8 +117,8 @@ router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
 // Post route to confirm security question for forgotten pw
 router.post('/confirmsq', function(req, res){
 	//check to confirm answer to security question is correct
-	const { secQ1Ans, trueAns, adminId, userId, isAdmin } = req.body; //bring in body parameters
-	if(secQ1Ans == trueAns){ //if user answered seq question correctly, then proceed to resetting password
+	const { secQ1Ans, secQ2Ans, trueAns1, trueAns2, adminId, userId, isAdmin } = req.body; //bring in body parameters
+	if((secQ1Ans == trueAns1) && (secQ2Ans == trueAns2)){ //if user answered seq question correctly, then proceed to resetting password
 		var page = {
 			title: "Reset PW"
 		}

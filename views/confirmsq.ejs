@@ -1,24 +1,40 @@
 <% include partials/header %>
-<%- messages('message', locals) %>
 
-<h1>Reset Password</h1>
-
-<form action="/confirmsq" method="POST">
-    <h5>Answer the following security question to reset your password:</h5>
-    <div>
-        <label><%= user_data.secQ1 %></label>
-        <input type="text" class="form-control" name="secQ1Ans" required>
+<h5 class="page-subtitle text-center">RESET PASSWORD</h1>
+    <br>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <%- messages('message', locals) %>
+                    <form action="/confirmsq" method="POST">
+                        <h6>Answer the following security question to reset your password:</h6>
+                        <div>
+                            <label><%= user_data.secQ1 %></label>
+                            <input type="text" class="form-control" name="secQ1Ans" required>
+                        </div>
+                        <div>
+                            <label><%= user_data.secQ2 %></label>
+                            <input type="text" class="form-control" name="secQ2Ans" required>
+                        </div>
+                        <% if(user_data.isAdmin == 1){ %>
+                            <input type='hidden' value='<%= user_data.adminId %>' name='adminId'>
+                        <% } else{ %>
+                            <input type='hidden' value='<%= user_data.userId %>' name='userId'>
+                        <% } %>
+                        <input type='hidden' value='<%= user_data.secQ1Ans %>' name="trueAns1">
+                        <input type='hidden' value='<%= user_data.secQ2Ans %>' name="trueAns2">
+                        <input type='hidden' value='<%= user_data.isAdmin %>' name='isAdmin'>
+                        <br> 
+                        <button class="btn btn-dark" type="submit" value="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a href="/login">Back to Login</a><br>
+                </div>
+            </div>
+        </div>
     </div>
-    <% if(user_data.isAdmin == 1){ %>
-        <input type='hidden' value='<%= user_data.adminId %>' name='adminId'>
-    <% } else{ %>
-        <input type='hidden' value='<%= user_data.userId %>' name='userId'>
-    <% } %>
-    <input type='hidden' value='<%= user_data.secQ1Ans %>' name="trueAns">
-    <input type='hidden' value='<%= user_data.isAdmin %>' name='isAdmin'>
-    <br> 
-    <button class="btn btn-dark" type="submit" value="submit">Submit</button>
-</form>
-
 
 <% include partials/footer %>
