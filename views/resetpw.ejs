@@ -1,32 +1,38 @@
 <% include partials/header %>
-<%- messages('message', locals) %>
-<% include partials/errorHandler %>
 
-<h1>Reset Password</h1>
-<br>
-
-<form action="/resetpw" method="POST">
-    <div class="form-group row">
-        <label for='password' class='col-sm-2 col-form-label'>New Password:</label>
-        <div class='col-sm-10'>
-            <input type="password" class="form-control" name="password" required>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for='password2' class='col-sm-2 col-form-label'>Confirm Password:</label>
-        <div class='col-sm-10'>
-            <input type="password" class="form-control" name="password2" required>
-        </div>
-    </div>
-    <% if(user_data.isAdmin == 1){ %>
-        <input type='hidden' value='<%= user_data.adminId %>' name='adminId'>
-    <% } else{ %>
-        <input type='hidden' value='<%= user_data.userId %>' name='userId'>
-    <% } %>
-    <input type='hidden' value='<%= user_data.isAdmin %>' name='isAdmin'>
+<h5 class="page-subtitle text-center">RESET PASSWORD</h1>
     <br>
-    <button class="btn btn-dark" type="submit" value="submit">Reset Password</button>
-</form>
-
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <%- messages('message', locals) %>
+                    <% include partials/errorHandler %>
+                    <form action="/resetpw" method="POST">
+                        <div>
+                            <label for='password'>New Password:</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                        <div>
+                            <label for='password2'>Confirm Password:</label>
+                            <input type="password" class="form-control" name="password2" required>
+                        </div>
+                        <% if(user_data.isAdmin == 1){ %>
+                            <input type='hidden' value='<%= user_data.adminId %>' name='adminId'>
+                        <% } else{ %>
+                            <input type='hidden' value='<%= user_data.userId %>' name='userId'>
+                        <% } %>
+                        <input type='hidden' value='<%= user_data.isAdmin %>' name='isAdmin'>
+                        <br>
+                        <button class="btn btn-dark" type="submit" value="submit">Reset Password</button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a href="/login">Back to Login</a><br>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <% include partials/footer %>
