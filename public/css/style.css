@@ -11,7 +11,49 @@
     margin-left: 10px;
 }
 
+th {
+    background-color: #F7882F;
+    color: white;
+} 
+
 .table-striped tbody tr:nth-child(odd) td,
 .table-striped tbody tr:nth-child(odd) th {
-    background-color: #DFF0D8;
+    background-color: #EBDFCE;
 }
+
+.table-striped tbody tr:nth-child(even) td,
+.table-striped tbody tr:nth-child(even) th {
+    background-color:#DCC7AA;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #F7C331;
+  }
+
+.table-curved {
+    border-collapse: separate;
+    border: solid #ccc 1px;
+    border-radius: 6px;
+    border-left: 0px;
+    border-top: 0px;
+ }
+ .table-curved > thead:first-child > tr:first-child > th {
+     border-bottom: 0px;
+     border-top: solid #ccc 1px;
+ }
+ .table-curved td, .table-curved th {
+     border-left: 1px solid #ccc;
+     border-top: 1px solid #ccc;
+ }
+ .table-curved > :first-child > :first-child > :first-child {
+     border-radius: 6px 0 0 0;
+ }
+ .table-curved > :first-child > :first-child > :last-child {
+     border-radius: 0 6px 0 0;
+ }
+ .table-curved > :last-child > :last-child > :first-child {
+     border-radius: 0 0 0 6px;
+ }
+ .table-curved > :last-child > :last-child > :last-child {
+     border-radius: 0 0 6px 0;
+ }
