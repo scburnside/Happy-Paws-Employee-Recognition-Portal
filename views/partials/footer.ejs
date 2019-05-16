@@ -13,10 +13,16 @@
     <script src ="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     
     <script>
-        $(document).ready(function(){
-            $('#example').dataTable();
-        });
-        </script>
+    $(document).ready(function(){
+   $('#userAccountsTable').DataTable({
+     'columnDefs': [ {
+        'targets': [7,8], /* Disable sorting on Edit & Delete Column */
+        'orderable': false, 
+     }]
+   });
+});
+    
+    </script>
 
     </body>
 </html>

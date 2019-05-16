@@ -13,6 +13,7 @@
 
 <head>
     
+
 </head>
 
 <h1>Happy Paws Employee Portal</h1><br>
@@ -20,7 +21,7 @@
 <h4>Manage User Accounts</h4><br>
 
 
-<table id="example" class="table table-striped table-bordered" style="width:100%">
+<table id="userAccountsTable" class="table table-striped table-bordered" style="width:100%">
     <thead>  
         <tr>
             <th>User Id</th>
@@ -44,8 +45,8 @@
                 <td><%= user.createdAt.toDateString(); %></td>
                 <td><%= user.title %></td>
                 <td><%= user.department %> </td>
-                <td><button onclick="location.href='/users/admin/edituseraccount/<%= user.userId %>'">Edit</span></button></td>
-                <td><button onclick='deleteUser("<%= user.userId %>")'>Delete</button></td>
+                <td><button class="btn btn-info btn-sm" onclick="location.href='/users/admin/edituseraccount/<%= user.userId %>'"><i class='fas fa-pencil-alt'></i></button></td>
+                <td><button class="btn btn-info btn-sm" onclick='deleteUser("<%= user.userId %>")'><i class='fas fa-trash-alt'></i></button></td>
             </tr>
         <% }) %>
     </tbody>    
