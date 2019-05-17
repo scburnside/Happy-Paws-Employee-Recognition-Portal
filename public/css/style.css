@@ -12,7 +12,7 @@
 }
 
 .table{
-    font-size: 15px; 
+    font-size: 15px;
 }
 
 /*Orange Header*/
@@ -22,9 +22,15 @@
 }    */
 
 /*Dark Blue Header*/
-.table th {
+/* .table th {
     background-color: #224E7A;
     border-top:10px solid green;
+    color: white;
+}   */
+
+/*Dark Blue Header for datatables*/
+.datatablethead tr {
+    background-color: #224E7A;
     color: white;
 }  
  
@@ -36,9 +42,9 @@
  */
 
  /*Dark Blue*/
-.table tr {
+/* .table tr {
     color: #224E7A;
-} 
+}  */
 
 /*Light Blue*/
 h4{
