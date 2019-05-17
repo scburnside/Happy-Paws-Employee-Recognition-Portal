@@ -34,5 +34,16 @@
     });  
     </script>
 
+<script>
+        $(document).ready(function(){
+       $('#displayawardTable').DataTable({
+         'columnDefs': [ {
+            'targets': [5], /* Disable sorting on Delete Column */
+            'orderable': false, 
+         }]
+       });
+    });  
+    </script>
+
     </body>
 </html>
