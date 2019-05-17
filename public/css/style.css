@@ -15,15 +15,11 @@
     font-size: 15px;
 }
 
-
-
 /*Dark Blue Header for datatables*/
 .datatablethead tr {
     background-color: #224E7A;
     color: white;
 }  
- 
-
 
 /*Light Blue*/
 h4{
