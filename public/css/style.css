@@ -15,9 +15,14 @@
     font-size: 15px;
 }
 
-/*Dark Blue Header for navbar*/
+/*Dark Blue for navbar*/
 #navbar {
   background-color: #224E7A;
+}
+
+/*Navbar text color*/
+.navbar-dark .navbar-nav .nav-link {
+  color: #e9ecef
 }
 
 /*Dark Blue Header for datatables*/

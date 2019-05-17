@@ -10,7 +10,7 @@ module.exports = function(passport){
                 // confirm user is in admin DB
                 mysql.pool.query('SELECT * FROM admin WHERE userName = ?', [email], function(error, users){
                     if(!users.length){
-                        return done(null, false, req.flash('danger', 'That username is not registerd as an admin.'));
+                        return done(null, false, req.flash('warning', 'Incorrect username or password.'));
                     }
     
                     // now we need to verify password
@@ -22,7 +22,7 @@ module.exports = function(passport){
                             admin = true;
                             return done(null, user);
                         } else{
-                            return done(null, false, req.flash('danger', 'Incorrect password.'));
+                            return done(null, false, req.flash('warning', 'Incorrect username or password.'));
                         }
                     })
                 });
@@ -30,7 +30,7 @@ module.exports = function(passport){
                 // confirm user is in user DB
                 mysql.pool.query('SELECT * FROM user WHERE email = ?', [email], function(error, users){
                     if(!users.length){
-                        return done(null, false, req.flash('danger', 'That email is not registerd.'));
+                        return done(null, false, req.flash('warning', 'Incorrect email or password.'));
                     }
     
                     // now we need to verify password
@@ -42,7 +42,7 @@ module.exports = function(passport){
                             admin = false;
                             return done(null, user);
                         } else{
-                            return done(null, false, req.flash('danger', 'Incorrect password.'));
+                            return done(null, false, req.flash('warning', 'Incorrect email or password.'));
                         }
                     })
                 });
