@@ -2,50 +2,41 @@
 <%- messages('message', locals) %>
 <% include partials/errorHandler %>
 
-<head>
-        <style>
-        table, th, td {
-          border: 1px solid black;
-          border-collapse: collapse;
-        }
-        </style>
-    </head>
-
 <h1>Happy Paws Employee Portal</h1><br>
 
 <h4>Manage Admin Accounts</h4><br>
 
-<table style="width:100%">
+<a class="btn btn-custom1 btn-md" href="/users/admin/createadminaccount" style="float: right" role="button"><i class='fas fa-user'></i> Add Admin</a>
+
+<table id="adminAccountsTable" class="table table-striped table-curved table-hover table table-sm" style="width:100%">
+    <thead class ="datatablethead">  
         <tr>
             <th>Admin Id</th>
             <th>User Name</th> 
             <th>Account Created On:</th>
             <th>Title</th>
             <th>Department</th> 
-            <th>Edit</th>
-            <th>Delete</th>
+            <th style="padding-right: 0; padding-left: 0;text-align:center">Edit</th>
+            <th style="padding-right: 0; padding-left: 0;text-align:center">Delete</th>
         </tr>
-    <% admins.forEach(function(admin)  { %>
-        <tr>
-            <td><%= admin.adminId %></td>
-            <td><%= admin.userName %></td>
-            <td><%= admin.createdAt %></td>
-            <td><%= admin.title %></td>
-            <td><%= admin.department %></td>
-            <td><button onclick="location.href='/users/admin/editadminaccount/<%= admin.adminId %>'">Edit</button></td>
-            <td><button onclick='deleteAdmin("<%= admin.adminId %>")'>Delete</button></td>
-        </tr>
-    <% }) %>
-    </table>
-    <br>
+    </thead>
+    </tbody>
+        <% admins.forEach(function(admin)  { %>
+            <tr>
+                <td><%= admin.adminId %></td>
+                <td><%= admin.userName %></td>
+                <td><%= admin.createdAt.toDateString(); %></td>
+                <td><%= admin.title %></td>
+                <td><%= admin.department %></td>
+                <td><button class="btn btn-edit1 btn-sm" onclick="location.href='/users/admin/editadminaccount/<%= admin.adminId %>'"style="display: block; margin: 0 auto"><i class='fas fa-pencil-alt'></i></button></td>
+                <td><button class="btn btn-delete btn-sm" onclick='deleteAdmin("<%= admin.adminId %>")'style="display: block; margin: 0 auto"><i class='fas fa-trash-alt'></i></button></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<br> 
 
-    <br>
-    
-        <a class="btn btn-info btn-lg" href="/users/admin/createadminaccount" role="button">Create New Admin Account</a>
-    
-    <br><br>
-
-<a class="btn btn-info btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
+<a class="btn btn-custom1 btn-md" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
 
 
 <% include partials/footer %>
