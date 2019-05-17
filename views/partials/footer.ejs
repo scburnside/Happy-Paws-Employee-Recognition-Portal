@@ -8,5 +8,21 @@
     <script src="/js/deleteAdmin.js"></script>
     <script src="/js/deleteAward.js"></script>
     <script src="/js/main.js"></script>
+
+    <script src ="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src ="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+   $('#userAccountsTable').DataTable({
+     'columnDefs': [ {
+        'targets': [7,8], /* Disable sorting on Edit & Delete Column */
+        'orderable': false, 
+     }]
+   });
+});
+    
+    </script>
+
     </body>
 </html>
