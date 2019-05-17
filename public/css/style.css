@@ -15,43 +15,57 @@
     font-size: 15px; 
 }
 
+/*Orange Header*/
 /* .table th {
-    background-color: #BD8465;
+    background-color: #874827;
     color: white;
-}   */
+}    */
 
+/*Dark Blue Header*/
 .table th {
     background-color: #224E7A;
+    border-top:10px solid green;
+    color: white;
+}  
+ 
+/*Light Blue Header*/
+/* .table th {
+    background-color: #659DBD;
     color: white;
 } 
- 
+ */
 
+ /*Dark Blue*/
 .table tr {
     color: #224E7A;
 } 
 
+/*Light Blue*/
 h4{
-    color: #224E7A;
+    color: #659DBD;
 }
 
+/*Dark Blue*/
 body{
     color: #224E7A;
 }
 
+/*Super Pale Yellow - Can be striped with dif colors*/
 .table-striped tbody tr:nth-child(odd) td,
 .table-striped tbody tr:nth-child(odd) th {
     background-color: #FDF7E4;
 }
-
 .table-striped tbody tr:nth-child(even) td,
 .table-striped tbody tr:nth-child(even) th {
     background-color:#FDF7E4;
 } 
 
+/*Bright Yellow*/
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #FBEEC1;
   }
 
+/*Make Table Rounded*/
 .table-curved {
     border-collapse: separate;
     border: solid #ccc 1px;
@@ -63,7 +77,13 @@ body{
      border-bottom: 0px;
      border-top: solid #ccc 1px;
  }
- .table-curved td, .table-curved th {
+
+.table-curved th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    
+}
+ .table-curved td {
      border-left: 1px solid #ccc;
      border-top: 1px solid #ccc;
  }
@@ -80,6 +100,7 @@ body{
      border-radius: 0 0 6px 0;
  }
 
+ /*Light Blue Custom Button*/
  .btn-custom { 
     color: #FFFFFF; 
     background-color: #659DBD; 
@@ -126,55 +147,55 @@ body{
     background-color: #FFFFFF; 
   }
 
-/* 
-  .btn-delete { 
+  /*Dark Orange Custom1 Button*/
+  .btn-custom1 { 
     color: #FFFFFF; 
-    background-color: #FF0000; 
-    border-color: #FF0000; 
-    font-size: 12px;
+    background-color: #BD6637; 
+    border-color: #BD6637; 
   } 
    
-  .btn-delete:hover, 
-  .btn-delete:focus, 
-  .btn-delete:active, 
-  .btn-delete.active, 
-  .open .dropdown-toggle.btn-delete { 
+  .btn-custom1:hover, 
+  .btn-custom1:focus, 
+  .btn-custom1:active, 
+  .btn-custom1.active, 
+  .open .dropdown-toggle.btn-custom1 { 
     color: #FFFFFF; 
-    background-color: #941526; 
-    border-color: #FF0000; 
+    background-color: #874827; 
+    border-color: #BD6637; 
   } 
    
-  .btn-delete:active, 
-  .btn-delete.active, 
-  .open .dropdown-toggle.btn-delete { 
+  .btn-custom1:active, 
+  .btn-custom1.active, 
+  .open .dropdown-toggle.btn-custom1 { 
     background-image: none; 
   } 
    
-  .btn-delete.disabled, 
-  .btn-delete[disabled], 
-  fieldset[disabled] .btn-delete, 
-  .btn-delete.disabled:hover, 
-  .btn-delete[disabled]:hover, 
-  fieldset[disabled] .btn-delete:hover, 
-  .btn-delete.disabled:focus, 
-  .btn-delete[disabled]:focus, 
-  fieldset[disabled] .btn-delete:focus, 
-  .btn-delete.disabled:active, 
-  .btn-delete[disabled]:active, 
-  fieldset[disabled] .btn-delete:active, 
-  .btn-delete.disabled.active, 
-  .btn-delete[disabled].active, 
-  fieldset[disabled] .btn-delete.active { 
-    background-color: #FF0000; 
-    border-color: #FF0000; 
+  .btn-custom1.disabled, 
+  .btn-custom1[disabled], 
+  fieldset[disabled] .btn-custom1, 
+  .btn-custom1.disabled:hover, 
+  .btn-custom1[disabled]:hover, 
+  fieldset[disabled] .btn-custom1:hover, 
+  .btn-custom1.disabled:focus, 
+  .btn-custom1[disabled]:focus, 
+  fieldset[disabled] .btn-custom1:focus, 
+  .btn-custom1.disabled:active, 
+  .btn-custom1[disabled]:active, 
+  fieldset[disabled] .btn-custom1:active, 
+  .btn-custom1.disabled.active, 
+  .btn-custom1[disabled].active, 
+  fieldset[disabled] .btn-custom1.active { 
+    background-color: #BD6637; 
+    border-color: #BD6637; 
   } 
    
-  .btn-delete .badge { 
-    color: #FF0000; 
+  .btn-custom1 .badge { 
+    color: #BD6637; 
     background-color: #FFFFFF; 
   }
- */
 
+
+/*Dark Red Delete Button*/
  .btn-delete { 
     color: #FFFFFF; 
     background-color: #7b2323; 
@@ -221,7 +242,7 @@ body{
     background-color: #FFFFFF; 
   }
 
-
+/*Light blue Edit Button*/
   .btn-edit { 
     color: #FFFFFF; 
     background-color: #659DBD; 
@@ -269,31 +290,93 @@ body{
     background-color: #FFFFFF; 
   }
 
-  .pagination li a {
-    /* border-radius: 50% !important;margin: 0 6px; */
-    border-radius: 6px;
-    background-color: white;
-    color: #23527c;
- }
- 
-.pagination li a:focus,
-.pagination li a:hover,
-.pagination li span:focus,
-.pagination li span:hover {
-    color: #23527c;
-    background-color: rgb(175, 175, 175);
-    border-color:  rgb(175, 175, 175);
-}
+  /*Dark Orange Edit1 Button*/
+  .btn-edit1 { 
+    color: #FFFFFF; 
+    background-color: #BD6637; 
+    border-color: #BD6637; 
+  } 
+   
+  .btn-edit1:hover, 
+  .btn-edit1:focus, 
+  .btn-edit1:active, 
+  .btn-edit1.active, 
+  .open .dropdown-toggle.btn-edit1 { 
+    color: #FFFFFF; 
+    background-color: #874827; 
+    border-color: #BD6637; 
+  } 
+   
+  .btn-edit1:active, 
+  .btn-edit1.active, 
+  .open .dropdown-toggle.btn-edit1 { 
+    background-image: none; 
+  } 
+   
+  .btn-edit1.disabled, 
+  .btn-edit1[disabled], 
+  fieldset[disabled] .btn-edit1, 
+  .btn-edit1.disabled:hover, 
+  .btn-edit1[disabled]:hover, 
+  fieldset[disabled] .btn-edit1:hover, 
+  .btn-edit1.disabled:focus, 
+  .btn-edit1[disabled]:focus, 
+  fieldset[disabled] .btn-edit1:focus, 
+  .btn-edit1.disabled:active, 
+  .btn-edit1[disabled]:active, 
+  fieldset[disabled] .btn-edit1:active, 
+  .btn-edit1.disabled.active, 
+  .btn-edit1[disabled].active, 
+  fieldset[disabled] .btn-edit1.active { 
+    background-color: #BD6637; 
+    border-color: #BD6637; 
+  } 
+   
+  .btn-edit1 .badge { 
+    color: #BD6637; 
+    background-color: #FFFFFF; 
+  }
 
-.pagination > .active > a
+  .pagination li a {
+    border-radius: 6px; /*rounded buttons*/
+    background-color: #FDF7E4;
+    color: #23527c;
+   /*  border-color:  #23527c; */
+ }
+
+ .pagination li a:focus,
+ .pagination li a:hover,
+ .pagination li span:focus,
+ .pagination li span:hover {
+     color: #23527c;
+     background-color: #FBEEC1;
+     /* border-color:  #224E7A; */
+ }
+
+ .pagination > .active > a
 {
     color: white;
-    background-color: #BD6637 !Important;
-    border: solid 1px  #BD6637 !Important;
+    background-color: #224E7A !Important;
+    /* border: solid 1px  #224E7A !Important; */
 }
 
 .pagination > .active > a:hover
 {
-    background-color: #874827 !Important;
-    border: solid 1px #874827;
+    background-color: #0E2134 !Important;
+    /* border: solid 1px #0E2134; */
 }
+
+/*Doesn't work --- DELETE*/
+/* .pagination li a:disabled{
+    color: green;
+    background-color: purple;
+    border-color:  #224E7A;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+    color: pink;
+    background-color: orange;
+    cursor: default;
+} */

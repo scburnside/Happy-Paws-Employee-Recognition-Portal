@@ -31,7 +31,7 @@
                 <td><%= user.createdAt.toDateString(); %></td>
                 <td><%= user.title %></td>
                 <td><%= user.department %> </td>
-                <td><button class="btn btn-edit btn-sm" onclick="location.href='/users/admin/edituseraccount/<%= user.userId %>'"style="display: block; margin: 0 auto"><i class='fas fa-pencil-alt'></i></button></td>
+                <td><button class="btn btn-edit1 btn-sm" onclick="location.href='/users/admin/edituseraccount/<%= user.userId %>'"style="display: block; margin: 0 auto"><i class='fas fa-pencil-alt'></i></button></td>
                 <td><button class="btn btn-delete btn-sm" onclick='deleteUser("<%= user.userId %>")'style="display: block; margin: 0 auto"><i class='fas fa-trash-alt'></i></button></td>
             </tr>
         <% }) %>
@@ -39,11 +39,11 @@
 </table>
 <br>
 
-    <a class="btn btn-custom btn-lg" href="/users/admin/createuseraccount" role="button">Create New User Account</a>
+    <a class="btn btn-custom1 btn-lg" href="/users/admin/createuseraccount" role="button">Create New User Account</a>
 
 <br><br>
 
 
-<a class="btn btn-custom btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
+<a class="btn btn-custom1 btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
 
 <% include partials/footer %>
