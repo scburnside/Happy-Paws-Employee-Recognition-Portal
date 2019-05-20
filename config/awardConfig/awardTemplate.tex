@@ -2,6 +2,7 @@
 \usepackage{wallpaper}
 \usepackage{niceframe}
 \usepackage{xcolor}
+\usepackage{miama}
 \usepackage{ulem}
 \usepackage{graphicx}
 \usepackage{geometry}
@@ -19,7 +20,7 @@ lmargin=.5cm,rmargin=.5cm}
 \from=fromName, \fromTitle=fromTitle, \to=toName, \type=awardType, \date=createdDate, \sigPath=fromSig}
 
 \centering
-\scalebox{2.65}{\color{green!30!black!60}
+\scalebox{2.55}{\color[HTML]{224E7A}
 \begin{minipage}{.38\textwidth}
 \font\border=umrandb
 \generalframe
@@ -49,11 +50,12 @@ lmargin=.5cm,rmargin=.5cm}
 
 \smallskip
 
-\textcolor{red!30!black!90} 
+\textcolor[HTML]{BD6637}
 {\textit{Certificate of}} \\
-\textcolor{black}{\large \textsc{\type}}
+\textcolor{black}{\large \textsc{\fontsize{0.3in}{0.3}\fmmfamily\type}}
 
 \vspace{2mm}
+
 
 \tiny
 \small\uline{To: \textcolor{black}
@@ -71,7 +73,7 @@ lmargin=.5cm,rmargin=.5cm}
 \cline{1-1} 
 \\
 \from & \\
-\fromTitle \\ 
+\tiny\fromTitle \\ 
 \end{tabular}
 }}}}
 \end{minipage}

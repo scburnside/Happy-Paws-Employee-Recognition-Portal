@@ -15,7 +15,7 @@ function sendAward(awardInfo, cb){
 
     // set up html body content for email
     var content_body = "<p>Dear " + awardInfo.to_name + ",</p>" +
-        "<p>Congratualtions! You have been recognized by the Happy Paws Management Team! Please see attached for your award certificate.</p>" +
+        "<p>Congratulations! You have been recognized by the Happy Paws Management Team! Please see attached for your award certificate.</p>" +
         "<p>Sincerely,</p>" +
         "The Happy Paws Management Team";
 
