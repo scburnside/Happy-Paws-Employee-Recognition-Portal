@@ -388,4 +388,24 @@ router.get('/analyticsAwardType', routePermission.ensureAdmin, function(req, res
 
 
 
+// View All Awards Table
+router.get('/analyticsViewAllAwards', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	 mysql.pool.query("SELECT awardType, awardId, DATE_FORMAT(dateCreated, '%b-%d-%Y') AS 'dateCreated', fName, lName, to_fName, to_lName, to_email FROM award INNER JOIN user ON fromWhom = userId ORDER By awardType ASC;", function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;} 
+	
+	res.render('analyticsViewAllAwards', 
+		{page: page, 
+		awards:result});
+	});
+}) 
+
+
+
+
+
 module.exports = router;

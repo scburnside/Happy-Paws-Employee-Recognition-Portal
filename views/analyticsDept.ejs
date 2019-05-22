@@ -2,12 +2,12 @@
 <%- messages('message', locals) %>
 
 <head>
-    <style>
+  <!--   <style>
     table, th, td {
       border: 1px solid black;
       border-collapse: collapse;
     }
-    </style>
+    </style> -->
 
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -60,7 +60,8 @@
         <p>Filter Award Data By:</p>
         <a class="btn btn-custom1" href="/users/admin/analytics" role="button">Users</a>
         <a class="btn btn-custom1" href="/users/admin/analyticsDept" role="button">Department</a>
-        <a class="btn btn-custom1" href="/users/admin/analyticsAwardType" role="button">AwardType</a>
+        <a class="btn btn-custom1" href="/users/admin/analyticsAwardType" role="button">Award Type</a>
+        <a class="btn btn-custom1" href="/users/admin/analyticsViewAllAwards" role="button">View All Awards</a>
 
     <!-- <Div that holds the bar chart -->
     <div id="chart_div"></div>
