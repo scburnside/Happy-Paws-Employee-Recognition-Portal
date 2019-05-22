@@ -79,7 +79,7 @@ router.get('/adminmenu', routePermission.ensureAdmin, function(req, res){
 router.get('/manageuseraccounts', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Manage User Accounts"}; 
 	var mysql = req.app.get("mysql");
-	mysql.pool.query('SELECT * FROM user', function(err, result){
+	mysql.pool.query("SELECT userId, fName, lName, email, DATE_FORMAT(createdAt, '%b-%d-%Y') AS 'createdAt', title, department FROM user;", function(err, result){
 		if(err){
 			console.log('err in display user table');
 			next(err);
@@ -211,7 +211,7 @@ router.post('/createuseraccount', routePermission.ensureAdmin, upload.none(), [
 router.get('/manageadminaccounts', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Manage Admin Accounts"}; 
 	var mysql = req.app.get("mysql");
-	mysql.pool.query('SELECT * FROM admin', function(err, result){
+	mysql.pool.query("SELECT adminId, userName, DATE_FORMAT(createdAt, '%b-%d-%Y') AS 'createdAt', title, department FROM admin;", function(err, result){
 		if(err){
 			console.log('Error in Display Admin Table');
 			next(err);
