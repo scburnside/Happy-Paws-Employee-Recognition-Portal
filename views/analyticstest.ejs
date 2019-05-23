@@ -28,12 +28,12 @@
         var awardData = new Array();
 
         var awardHaveItem = new Array();
-        awardHaveItem.push( 'Have Given Users');
+        awardHaveItem.push( 'Users that have issued at least 1 award');
         awardHaveItem.push( awardJSON[0].HaveGivenUsers);
         awardData.push(awardHaveItem);
 
         var awardHaveNotItem = new Array();
-        awardHaveNotItem.push( 'Have Not Given Users');
+        awardHaveNotItem.push( 'Users that have never issued an award');
         awardHaveNotItem.push( awardJSON[0].HaveNotGivenUsers);
         awardData.push(awardHaveNotItem);
 
@@ -42,12 +42,16 @@
         data.addRows(awardData);
 
         // Set chart options
-        var options = {'title':'Awards Created by Department',
+        var options = {'title':'User Participation',
                        'width':800,
-                       'height':500};
+                       'height':500,
+                       'titleTextStyle': {color: '#224E7A'},
+                       legend: {textStyle: {color: '#224E7A'}},
+                       'colors': ['#659DBD','#7b2323'],
+                       };
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('pieChartDiv'));
         chart.draw(data, options);
       }
     </script>
@@ -64,10 +68,8 @@
         <a class="btn btn-custom1" href="/users/admin/analyticsAwardType" role="button">Award Type</a>
         <a class="btn btn-custom1" href="/users/admin/analyticsViewAllAwards" role="button">View All Awards</a>
 
-    <!-- <Div that holds the bar chart -->
-    <div id="chart_div"></div>
-    
-    <p>TODO:  Insert Pie Chart for Depts that have created awards vs Depts that have never created an award.</p>   
+    <!-- <Div that holds the pie chart -->
+    <div id="pieChartDiv"></div>  
 
   </body>
 
