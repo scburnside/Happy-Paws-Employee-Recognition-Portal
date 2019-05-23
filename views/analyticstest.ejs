@@ -2,7 +2,7 @@
 <%- messages('message', locals) %>
 
 <head>
-  
+
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -18,36 +18,36 @@
 
         // Create the data table
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Award Type');
-        data.addColumn('number', 'Awards');
+        data.addColumn('string', 'HaveGivenUsers');
+        data.addColumn('number', 'HaveNotGivenUsers');
 
-        <% 
+
+        var awardJSON = <%- JSON.stringify(awards); %>
+        //var awardData = JSON.parse(awardJSON);
+
         var awardData = new Array();
-        awards.forEach(function(award) 
-        { 
-            var awardItem = new Array();
-            awardItem.push( award.awardType);
-            awardItem.push( award.typeCount);
-            awardData.push(awardItem);
-        }) %>
-        var awardJSON = <%- JSON.stringify(awardData); %>
 
-        data.addRows(awardJSON);
+        var awardHaveItem = new Array();
+        awardHaveItem.push( 'Have Given Users');
+        awardHaveItem.push( awardJSON[0].HaveGivenUsers);
+        awardData.push(awardHaveItem);
+
+        var awardHaveNotItem = new Array();
+        awardHaveNotItem.push( 'Have Not Given Users');
+        awardHaveNotItem.push( awardJSON[0].HaveNotGivenUsers);
+        awardData.push(awardHaveNotItem);
+
+        //var awardChartJSON = JSON.stringify(awardData);
+
+        data.addRows(awardData);
 
         // Set chart options
-        var options = {'title':'Awards Created by Award Type',
+        var options = {'title':'Awards Created by Department',
                        'width':800,
-                       'height':500,
-                       'titleTextStyle': {color: '#224E7A'},
-                       'colors': ['#659DBD'],
-                       hAxis: {textStyle: {color: '#224E7A'}},
-                       vAxis: {textStyle: {color: '#224E7A'}},
-                       legend: {textStyle: {color: '#224E7A'}},
-                       chartArea: {backgroundColor: {fill: '#FDF7E4',}
-                        }};
+                       'height':500};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
     </script>
@@ -67,6 +67,8 @@
     <!-- <Div that holds the bar chart -->
     <div id="chart_div"></div>
     
+    <p>TODO:  Insert Pie Chart for Depts that have created awards vs Depts that have never created an award.</p>   
+
   </body>
 
 <br>

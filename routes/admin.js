@@ -405,7 +405,21 @@ router.get('/analyticsViewAllAwards', routePermission.ensureAdmin, function(req,
 }) 
 
 
-
+// Route to test Pie Chart - Analystics by Dept for now
+router.get('/analyticstest', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query("SELECT TotalUsers, HaveGivenUsers, TotalUsers - HaveGivenUsers AS HaveNotGivenUsers FROM (SELECT COUNT(user.userId) AS TotalUsers FROM user) a, (SELECT COUNT(DISTINCT award.fromWhom) AS HaveGivenUsers FROM award) b;", function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	
+	res.render('analyticstest', 
+		{page: page, 
+		awards:result});
+	});
+})
 
 
 module.exports = router;
