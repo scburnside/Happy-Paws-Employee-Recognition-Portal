@@ -43,7 +43,14 @@
         // Set chart options
         var options = {'title':'Awards Created by Award Type',
                        'width':800,
-                       'height':500};
+                       'height':500,
+                       'titleTextStyle': {color: '#224E7A'},
+                       'colors': ['#659DBD'],
+                       hAxis: {textStyle: {color: '#224E7A'}},
+                       vAxis: {textStyle: {color: '#224E7A'}},
+                       legend: {textStyle: {color: '#224E7A'}},
+                       chartArea: {backgroundColor: {fill: '#FDF7E4',}
+                        }};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
