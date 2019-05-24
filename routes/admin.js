@@ -338,7 +338,7 @@ router.post('/createadminaccount', routePermission.ensureAdmin, upload.none(), [
 
 
 
-// Route for Analytics & Reporting - Display Num of awards created by each user
+// Route for Analytics & Reporting - Query for Bar Chart
 router.get('/analytics', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Analytics & Reporting"}; 
 	var mysql = req.app.get("mysql");
@@ -353,6 +353,48 @@ router.get('/analytics', routePermission.ensureAdmin, function(req, res){
 		awards:result});
 	});
 })
+
+/* // TEST ROUTE FOR COMBINED QUERIES ////
+router.get('/analyticscombo', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+
+	//Define each query as a seperate promise
+	var query1 = req.app.get("mysql");
+	query1.pool.query('SELECT userId, COUNT(*) AS IdCount, fName, lName FROM award INNER JOIN user ON fromWhom = userId GROUP BY userId ORDER BY IdCount DESC;', function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	Promise.all(query1).spread(function(awards){
+		res.render('analyticscombo',
+		{page: page, 
+		awards:result})
+	})
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	});
+});
+
+// TEST ROUTE FOR COMBINED QUERIES ////
+router.get('/analyticcombo', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query("SELECT TotalUsers, HaveGivenUsers, TotalUsers - HaveGivenUsers AS HaveNotGivenUsers FROM (SELECT COUNT(user.userId) AS TotalUsers FROM user) a, (SELECT COUNT(DISTINCT award.fromWhom) AS HaveGivenUsers FROM award) b;", function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	
+	res.render('analyticcombo', 
+		{page: page, 
+		awards:result});
+	});
+})
+ */
+
+
 
 // Route for Analytics & Reporting - Display Num of awards created by each Department
 router.get('/analyticsDept', routePermission.ensureAdmin, function(req, res){
@@ -404,8 +446,7 @@ router.get('/analyticsViewAllAwards', routePermission.ensureAdmin, function(req,
 	});
 }) 
 
-
-// Route to test Pie Chart - Analystics by Dept for now
+/* // Route to test page - Query for Pie Chart
 router.get('/analyticstest', routePermission.ensureAdmin, function(req, res){
 	var page = { title: "Analytics & Reporting"}; 
 	var mysql = req.app.get("mysql");
@@ -419,7 +460,40 @@ router.get('/analyticstest', routePermission.ensureAdmin, function(req, res){
 		{page: page, 
 		awards:result});
 	});
+}) */
+
+// Route for Analytics & Reporting - View User Participation
+router.get('/analyticsuserparticipation', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query("SELECT TotalUsers, HaveGivenUsers, TotalUsers - HaveGivenUsers AS HaveNotGivenUsers FROM (SELECT COUNT(user.userId) AS TotalUsers FROM user) a, (SELECT COUNT(DISTINCT award.fromWhom) AS HaveGivenUsers FROM award) b;", function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	
+	res.render('analyticsuserparticipation', 
+		{page: page, 
+		awards:result});
+	});
 })
+
+// Route for Analytics & Reporting - View User Participation
+router.get('/analyticsdeptparticipation', routePermission.ensureAdmin, function(req, res){
+	var page = { title: "Analytics & Reporting"}; 
+	var mysql = req.app.get("mysql");
+	mysql.pool.query("SELECT TotalDept, HaveGivenDept, TotalDept - HaveGivenDept as HaveNotGivenDept FROM (SELECT COUNT(DISTINCT user.department) AS TotalDept from user) a, (SELECT COUNT(DISTINCT user.department) AS HaveGivenDept from award INNER JOIN user ON fromWhom = userId) b", function(err, result){
+		if(err){
+			console.log('err in display award table');
+			next(err);
+			return;}
+	
+	res.render('analyticsdeptparticipation', 
+		{page: page, 
+		awards:result});
+	});
+})
+
 
 
 module.exports = router;
