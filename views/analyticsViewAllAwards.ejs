@@ -1,0 +1,57 @@
+<% include partials/header %>
+<%- messages('message', locals) %>
+
+<head>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    </style>
+
+   
+<body>
+        <h1>Happy Paws Employee Portal</h1><br>
+
+        <h4>Analytics & Reporting</h4><br>
+        
+        <p>Filter Data By:</p>
+        <a class="btn btn-custom1" href="/users/admin/analytics" role="button">User Leaderboard</a>
+        <a class="btn btn-custom1" href="/users/admin/analyticsuserparticipation" role="button">User Participation</a>
+        <a class="btn btn-custom1" href="/users/admin/analyticsDept" role="button">Department Leaderboard</a>
+        <a class="btn btn-custom1" href="/users/admin/analyticsdeptparticipation" role="button">Department Participation</a>
+        <a class="btn btn-custom1" href="/users/admin/analyticsAwardType" role="button">Award Type</a>
+        <a class="btn btn-custom1" href="/users/admin/analyticsViewAllAwards" role="button">View All Awards</a>
+
+  </body>
+
+  <br><br>
+
+<table id="adminViewAllAwards" class="table table-striped table-curved table-hover table table-sm" style="width:100%">
+    <thead class ="datatablethead">  
+        <tr>
+            <th>Award Type </th>
+            <th>Award Id</th>
+            <th>Date Created</th>
+            <th>Creator</th> 
+            <th>Recipient </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% awards.forEach(function(award)  { %>
+            <tr>
+                <td><%= award.awardType %></td>
+                <td><%= award.awardId %></td>
+                <td><%= award.dateCreated %></td>
+                <td><%= award.fName %> <%= award.lName %> </td>
+                <td><%= award.to_fName %> <%= award.to_lName %> </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table> 
+
+<br>
+
+<a class="btn btn-custom1 btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
+
+<% include partials/footer %>
