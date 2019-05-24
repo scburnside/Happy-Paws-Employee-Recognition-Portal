@@ -35,10 +35,11 @@
         data.addRows(awardJSON);
 
         // Set chart options
-        var options = {'title':'Awards Created by Department',
+        var options = {'title':'Department Leaderboard\n(Departments that have created at least 1 award)',
                        'width':800,
                        'height':500,
                        'titleTextStyle': {color: '#224E7A'},
+                       'fontSize': '16',
                        'colors': ['#659DBD'],
                        hAxis: {textStyle: {color: '#224E7A'}},
                        vAxis: {textStyle: {color: '#224E7A'}},
@@ -68,13 +69,8 @@
 
     <!-- <Div that holds the bar chart -->
     <div id="chart_div"></div>
-    
-    <p>TODO:  Insert Pie Chart for Depts that have created awards vs Depts that have never created an award.</p>   
 
   </body>
-
-<br>
-
 
 <a class="btn btn-custom1 btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
 
