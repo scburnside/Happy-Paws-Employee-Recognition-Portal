@@ -139,6 +139,54 @@ body{
     background-color: #FFFFFF; 
   }
 
+/*Yellow Custom1 Button*/
+.btn-custom2 { 
+    color: #224E7A; 
+    background-color: #FBEEC1; 
+    border-color: #d6a90e; 
+  } 
+   
+  .btn-custom2:hover, 
+  .btn-custom2:focus, 
+  .btn-custom2:active, 
+  .btn-custom2.active, 
+  .open .dropdown-toggle.btn-custom2 { 
+    color: #FFFFFF; 
+    background-color: #d6a90e; 
+    border-color: #BD6637; 
+  } 
+   
+  .btn-custom2:active, 
+  .btn-custom2.active, 
+  .open .dropdown-toggle.btn-custom2 { 
+    background-image: none; 
+  } 
+   
+  .btn-custom2.disabled, 
+  .btn-custom2[disabled], 
+  fieldset[disabled] .btn-custom2, 
+  .btn-custom2.disabled:hover, 
+  .btn-custom2[disabled]:hover, 
+  fieldset[disabled] .btn-custom2:hover, 
+  .btn-custom2.disabled:focus, 
+  .btn-custom2[disabled]:focus, 
+  fieldset[disabled] .btn-custom2:focus, 
+  .btn-custom2.disabled:active, 
+  .btn-custom2[disabled]:active, 
+  fieldset[disabled] .btn-custom2:active, 
+  .btn-custom2.disabled.active, 
+  .btn-custom2[disabled].active, 
+  fieldset[disabled] .btn-custom2.active { 
+    background-color: #BD6637; 
+    border-color: #BD6637; 
+  } 
+   
+  .btn-custom2 .badge { 
+    color: #224E7A; 
+    background-color: #FFFFFF; 
+  }
+
+
 
 /*Dark Red Delete Button*/
  .btn-delete { 
@@ -263,3 +311,11 @@ body{
     /* border: solid 1px #0E2134; */
 }
 
+.csvbutton {
+    padding-top: 0%;
+    margin-top: 0px;
+    margin-left: 80px;
+    background-color: transparent;
+    text-align: center;
+    
+}
