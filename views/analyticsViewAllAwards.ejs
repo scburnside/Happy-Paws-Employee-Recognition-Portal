@@ -2,69 +2,69 @@
 <%- messages('message', locals) %>
 
 <head>
-        <script>
-                function ConvertToCSV() {
-                    <% 
-                        var awardData = new Array();
+    <script>
+        function ConvertToCSV() {
+            <% 
+                var awardData = new Array();
                         
-                        var tableTitle = new Array();
-                        tableTitle.push( 'Award Type');
-                        tableTitle.push( 'Award Id');
-                        tableTitle.push( 'Date Created');
-                        tableTitle.push( 'Creator');
-                        tableTitle.push( 'Department');
-                        tableTitle.push( 'Recipient');
-                        awardData.push(tableTitle);
+                    var tableTitle = new Array();
+                    tableTitle.push( 'Award Type');
+                    tableTitle.push( 'Award Id');
+                    tableTitle.push( 'Date Created');
+                    tableTitle.push( 'Creator');
+                    tableTitle.push( 'Department');
+                    tableTitle.push( 'Recipient');
+                    awardData.push(tableTitle);
 
-                        awards.forEach(function(award) 
-                        { 
-                            var awardItem = new Array();
-                            awardItem.push( award.awardType);
-                            awardItem.push( award.awardId);
-                            awardItem.push( award.dateCreated);
-                            awardItem.push( award.fName + ' ' + award.lName);
-                            awardItem.push( award.department);
-                            awardItem.push( award.to_fName + ' ' + award.to_lName);
-                            awardData.push(awardItem);
-                        }) %>
-                        var awards = <%- JSON.stringify(awardData); %>
+                    awards.forEach(function(award) 
+                    { 
+                        var awardItem = new Array();
+                        awardItem.push( award.awardType);
+                        awardItem.push( award.awardId);
+                        awardItem.push( award.dateCreated);
+                        awardItem.push( award.fName + ' ' + award.lName);
+                        awardItem.push( award.department);
+                        awardItem.push( award.to_fName + ' ' + award.to_lName);
+                        awardData.push(awardItem);
+                    }) %>
+                    var awards = <%- JSON.stringify(awardData); %>
             
-                    var csv = '';
-                    awards.forEach(award => 
+                var csv = '';
+                awards.forEach(award => 
+                    {
+                        for(var i = 0; i < award.length; i++)
                         {
-                            for(var i = 0; i < award.length; i++)
+                            csv += award[i];
+                            if( i < award.length - 1)
                             {
-                                csv += award[i];
-                                if( i < award.length - 1)
-                                {
-                                    csv += ',';
-                                }
+                                csv += ',';
                             }
-                            csv += '\r\n'
                         }
-                    )
+                        csv += '\r\n'
+                    }
+                )
 
-                    //Send to download
-                    console.log(csv);
-                    var filename = 'HappyPawsData.csv';
-                    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-                    if (navigator.msSaveBlob) { 
-                        navigator.msSaveBlob(blob, filename);
-                    } else {
-                        var link = document.createElement("a");
-                        if (link.download !== undefined) { 
+                //Send to download
+                console.log(csv);
+                var filename = 'HappyPawsData.csv';
+                var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                if (navigator.msSaveBlob) { 
+                    navigator.msSaveBlob(blob, filename);
+                } else {
+                    var link = document.createElement("a");
+                    if (link.download !== undefined) { 
                            
-                            var url = URL.createObjectURL(blob);
-                            link.setAttribute("href", url);
-                            link.setAttribute("download", filename);
-                            link.style.visibility = 'hidden';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        }
+                        var url = URL.createObjectURL(blob);
+                        link.setAttribute("href", url);
+                        link.setAttribute("download", filename);
+                        link.style.visibility = 'hidden';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
                     }
                 }
-                </script>
+            }
+    </script>
 </head>
    
 <body>
@@ -127,7 +127,7 @@
 </table> 
 
 <br>
-<div class="csvbutton">
+<div class="csvbuttonTable">
         <a id="export" class="btn btn-custom2" href="javascript:void(0);" onclick="ConvertToCSV()"><i class='fas fa-file-export'></i> Export CSV File</a>
     </div>
 

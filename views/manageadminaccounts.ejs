@@ -2,6 +2,70 @@
 <%- messages('message', locals) %>
 <% include partials/errorHandler %>
 
+<head>
+    <script>
+        function ConvertToCSV() {
+            <% 
+            var adminData = new Array();
+            
+            var tableTitle = new Array();
+            tableTitle.push( 'Admin Id');
+            tableTitle.push( 'Username');
+            tableTitle.push( 'Account Created On:');
+            tableTitle.push( 'Title');
+            tableTitle.push( 'Department');
+            adminData.push(tableTitle);
+
+            admins.forEach(function(admin) 
+            { 
+                var adminItem = new Array();
+                adminItem.push( admin.adminId);
+                adminItem.push( admin.userName);
+                adminItem.push( admin.createdAt);
+                adminItem.push( admin.title);
+                adminItem.push( admin.department);
+                adminData.push(adminItem);
+            }) %>
+            var admins = <%- JSON.stringify(adminData); %>
+
+            var csv = '';
+            admins.forEach(admin => 
+                {
+                    for(var i = 0; i < admin.length; i++)
+                    {
+                        csv += admin[i];
+                        if( i < admin.length - 1)
+                        {
+                            csv += ',';
+                        }
+                    }
+                    csv += '\r\n'
+                }
+            )
+
+            //Send to download
+            console.log(csv);
+            var filename = 'HappyPawsData.csv';
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            if (navigator.msSaveBlob) { 
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                if (link.download !== undefined) { 
+                           
+                    var url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+        }
+    </script>
+</head>
+
 <h1>Happy Paws Employee Portal</h1><br>
 
 <h4>Manage Admin Accounts</h4><br>
@@ -35,6 +99,10 @@
     </tbody>
 </table>
 <br> 
+
+<div class="csvbuttonTable">
+    <a id="export" class="btn btn-custom2" href="javascript:void(0);" onclick="ConvertToCSV()"><i class='fas fa-file-export'></i> Export CSV File</a>
+</div>
 
 <a class="btn btn-custom1 btn-md" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
 
