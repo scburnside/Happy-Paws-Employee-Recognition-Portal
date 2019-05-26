@@ -130,8 +130,9 @@ body{
   .btn-custom1.disabled.active, 
   .btn-custom1[disabled].active, 
   fieldset[disabled] .btn-custom1.active { 
-    background-color: #BD6637; 
-    border-color: #BD6637; 
+    background-color: #D9A78C; 
+    border-color: #D9A78C; 
+    cursor: not-allowed;
   } 
    
   .btn-custom1 .badge { 
