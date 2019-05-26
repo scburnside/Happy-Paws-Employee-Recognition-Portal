@@ -5,20 +5,9 @@
 
     <script>
         function ConvertToCSV() {
-           /* <% 
-                var awardData = new Array();
-                awards.forEach(function(award) 
-                { 
-                    var awardItem = new Array();
-                    awardItem.push( award.fName + ' ' + award.lName);
-                    awardItem.push( award.IdCount);
-                    awardData.push(awardItem);
-                }) %>
-                var awards = <%- JSON.stringify(awardData); %>
-            */
+           
             var awardJSON = <%- JSON.stringify(awards); %>
-            //var awardData = JSON.parse(awardJSON);
-
+            
             var awardData = new Array();
 
             var awardHaveItem = new Array();
@@ -47,14 +36,13 @@
             )
     
             console.log(csv);
-            var filename = 'data.csv';
+            var filename = 'HappyPawsData.csv';
             var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            if (navigator.msSaveBlob) { // IE 10+
+            if (navigator.msSaveBlob) { 
                 navigator.msSaveBlob(blob, filename);
             } else {
                 var link = document.createElement("a");
-                if (link.download !== undefined) { // feature detection
-                    // Browsers that support HTML5 download attribute
+                if (link.download !== undefined) { 
                     var url = URL.createObjectURL(blob);
                     link.setAttribute("href", url);
                     link.setAttribute("download", filename);
@@ -105,10 +93,11 @@
         // Set chart options
         var options = {'title':'User Participation',
                        'width':800,
-                       'height':500,
+                       'height':450,
                        'titleTextStyle': {color: '#224E7A'},
                        'fontSize': '16',
                        legend: {textStyle: {color: '#224E7A'}},
+                       chartArea:{},
                        'colors': ['#659DBD','#7b2323'],
                        };
 
@@ -124,13 +113,30 @@
 
         <h4>Analytics & Reporting</h4><br>
         
-        <p>Filter Data By:</p>
-        <a class="btn btn-custom1" href="/users/admin/analytics" role="button">User Leaderboard</a>
-        <a class="btn btn-custom1" href="/users/admin/analyticsuserparticipation" role="button">User Participation</a>
-        <a class="btn btn-custom1" href="/users/admin/analyticsDept" role="button">Department Leaderboard</a>
-        <a class="btn btn-custom1" href="/users/admin/analyticsdeptparticipation" role="button">Department Participation</a>
-        <a class="btn btn-custom1" href="/users/admin/analyticsAwardType" role="button">Award Type</a>
-        <a class="btn btn-custom1" href="/users/admin/analyticsViewAllAwards" role="button">View All Awards</a>
+        <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+            <div class="collapse navbar-collapse" id="nav-content">
+                <ul class="navbar-nav w-100 nav-justified">
+                    <li class="nav-item">
+                        <a class="nav-link btn-custom1" href="/users/admin/analytics" role="button">User Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-custom1" href="/users/admin/analyticsuserparticipation" role="button">User Participation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-custom1" href="/users/admin/analyticsDept" role="button">Dept Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-custom1" href="/users/admin/analyticsdeptparticipation" role="button">Dept Participation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-custom1" href="/users/admin/analyticsAwardType" role="button">Award Type</a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-custom1" href="/users/admin/analyticsViewAllAwards" role="button">View All Awards</a>
+                    </li>
+                </ul>
+            </div>
+        </nav> 
 
     <!-- <Div that holds the pie chart -->
     <div id="pieChartDiv"></div>  
@@ -138,6 +144,8 @@
     <div class="csvbutton">
         <a id="export" class="btn btn-custom2" href="javascript:void(0);" onclick="ConvertToCSV()">Export CSV File</a>
     </div>
+
+    <br>
 
   </body>
 
