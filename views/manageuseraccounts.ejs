@@ -2,6 +2,74 @@
 <%- messages('message', locals) %>
 <% include partials/errorHandler %>
 
+<head>
+    <script>
+        function ConvertToCSV() {
+            <% 
+            var userData = new Array();
+                
+            var tableTitle = new Array();
+            tableTitle.push( 'User Id');
+            tableTitle.push( 'First Name');
+            tableTitle.push( 'Last Name');
+            tableTitle.push( 'Email');
+            tableTitle.push( 'Account Created On:');
+            tableTitle.push( 'Title');
+            tableTitle.push( 'Department');
+            userData.push(tableTitle);
+    
+            users.forEach(function(user) 
+            { 
+                var userItem = new Array();
+                userItem.push( user.userId);
+                userItem.push( user.fName);
+                userItem.push( user.lName);
+                userItem.push( user.email);
+                userItem.push( user.createdAt);
+                userItem.push( user.title);
+                userItem.push( user.department);
+                userData.push(userItem);
+            }) %>
+            var users = <%- JSON.stringify(userData); %>
+
+            var csv = '';
+            users.forEach(user => 
+                {
+                    for(var i = 0; i < user.length; i++)
+                    {
+                        csv += user[i];
+                        if( i < user.length - 1)
+                        {
+                            csv += ',';
+                        }
+                    }
+                    csv += '\r\n'
+                }
+            )
+    
+            //Send to download
+            console.log(csv);
+            var filename = 'HappyPawsData.csv';
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            if (navigator.msSaveBlob) { 
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                if (link.download !== undefined) { 
+                               
+                    var url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+        }
+    </script>
+</head>
+    
 <h1>Happy Paws Employee Portal</h1><br>
 
 <h4>Manage User Accounts</h4><br>
@@ -39,6 +107,10 @@
     </tbody>    
 </table>
 <br>
+
+<div class="csvbuttonTable">
+    <a id="export" class="btn btn-custom2" href="javascript:void(0);" onclick="ConvertToCSV()"><i class='fas fa-file-export'></i> Export CSV File</a>
+</div>
 
 <a class="btn btn-custom1 btn-md" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
 
