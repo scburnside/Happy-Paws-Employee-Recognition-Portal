@@ -31,6 +31,21 @@
     color: white;
 }  
 
+@font-face {
+  font-family: miamaFont;
+  font-weight: 900;
+  src: url(../font/miama.otf);
+  
+}
+
+h1 {font-family: miamaFont;
+}
+
+.navbar-brand{
+  font-family: miamaFont;
+}
+
+
 /*Light Blue*/
 h4{
     color: #659DBD;
@@ -343,3 +358,4 @@ body{
     border-radius: .25rem;
     margin: 0 0.25em;
   }
+

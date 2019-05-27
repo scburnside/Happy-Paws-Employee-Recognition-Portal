@@ -6,7 +6,13 @@
         function ConvertToCSV() {
             <% 
                 var awardData = new Array();
-                awards.forEach(function(award) 
+
+                var tableTitle = new Array(); //Include Titles on Chart
+                tableTitle.push( 'Department Name');
+                tableTitle.push( 'Number of Awards');
+                awardData.push(tableTitle);
+
+                awards.forEach(function(award) //Chart Data
                 { 
                     var awardItem = new Array();
                     awardItem.push( award.department);
@@ -15,7 +21,7 @@
                 }) %>
                 var awards = <%- JSON.stringify(awardData); %>
     
-            var csv = '';
+            var csv = ''; //Convert to CSV
             awards.forEach(award => 
                 {
                     for(var i = 0; i < award.length; i++)
