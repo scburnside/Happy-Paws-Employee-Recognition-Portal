@@ -38,12 +38,29 @@
   
 }
 
-h1 {font-family: miamaFont;
+@font-face {
+  font-family: scriptyfont;
+  font-weight: 900;
+  src: url(../font/Afternoon\ in\ Stereo\ Personal\ Use.ttf);
+  
+}
+
+/* h1 {font-family: miamaFont;
 }
 
 .navbar-brand{
   font-family: miamaFont;
+} */
+
+h1 {font-family: scriptyfont;
+  font-size: 52px; 
 }
+
+.navbar-brand{
+  font-family: scriptyfont;
+  font-size: 22px; 
+} 
+
 
 
 /*Light Blue*/
