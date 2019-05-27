@@ -7,7 +7,7 @@
             <% 
                 var awardData = new Array();
                         
-                    var tableTitle = new Array();
+                    var tableTitle = new Array();//Include Table Titles
                     tableTitle.push( 'Award Type');
                     tableTitle.push( 'Award Id');
                     tableTitle.push( 'Date Created');
@@ -16,7 +16,7 @@
                     tableTitle.push( 'Recipient');
                     awardData.push(tableTitle);
 
-                    awards.forEach(function(award) 
+                    awards.forEach(function(award) //Include Chart Data
                     { 
                         var awardItem = new Array();
                         awardItem.push( award.awardType);
@@ -29,7 +29,7 @@
                     }) %>
                     var awards = <%- JSON.stringify(awardData); %>
             
-                var csv = '';
+                var csv = ''; //Convert to CSV
                 awards.forEach(award => 
                     {
                         for(var i = 0; i < award.length; i++)

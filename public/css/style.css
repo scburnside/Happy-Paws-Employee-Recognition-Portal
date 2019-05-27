@@ -31,6 +31,38 @@
     color: white;
 }  
 
+@font-face {
+  font-family: miamaFont;
+  font-weight: 900;
+  src: url(../font/miama.otf);
+  
+}
+
+@font-face {
+  font-family: scriptyfont;
+  font-weight: 900;
+  src: url(../font/Afternoon\ in\ Stereo\ Personal\ Use.ttf);
+  
+}
+
+/* h1 {font-family: miamaFont;
+}
+
+.navbar-brand{
+  font-family: miamaFont;
+} */
+
+h1 {font-family: scriptyfont;
+  font-size: 52px; 
+}
+
+.navbar-brand{
+  font-family: scriptyfont;
+  font-size: 22px; 
+} 
+
+
+
 /*Light Blue*/
 h4{
     color: #659DBD;
@@ -343,3 +375,4 @@ body{
     border-radius: .25rem;
     margin: 0 0.25em;
   }
+
