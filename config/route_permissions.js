@@ -37,6 +37,17 @@ module.exports ={
         req.flash('warning', 'Access denied. Please login.');
         res.redirect('/login');
     },
+    isComplete: function(req, res, next){
+        if(req.isAuthenticated()){
+            if(req.user.isAdmin && req.user.newAccount){
+                return next();
+            } else if(!req.user.isAdmin && req.user.accountComplete){
+                return next();
+            }
+        }
+
+        res.redirect('/login');
+    },
     redirectMainMenu: function(req, res, next){
         if(!req.isAuthenticated()){
             return next();

@@ -11,7 +11,7 @@ const passport = require('passport');
 const routePermission = require(`../config/route_permissions.js`);
 
 // Route for Admin to complete registration (if new account)
-router.get('/completeaccount', function(req, res){
+router.get('/completeaccount', routePermission.isComplete, function(req, res){
 	var page = {
 		title: "Complete Registration"
 	}

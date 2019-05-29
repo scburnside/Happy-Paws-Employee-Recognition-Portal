@@ -32,7 +32,7 @@ const fileFilter = function(req, file, cb){
 const upload = multer({storage: storage, fileFilter: fileFilter});
 
 // Route to complete user registration (if new account created by admin)
-router.get('/completeaccount', function(req, res){
+router.get('/completeaccount', routePermission.isComplete, function(req, res){
 	var page = {
 		title: "Complete Registration"
 	}
