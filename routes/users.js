@@ -216,9 +216,9 @@ function(req, res){
 	}
 })
 
-// Post route for changing user password
+// Post route for changing user password 
 router.post('/userresetpassword', routePermission.ensureUser, [
-	check('newpassword', 'New password must be at least 6 characters long').isLength({min: 6}), //check new password length
+	check('newpassword', 'New password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check new password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.newpassword) {
 			throw new Error('Password confirmation does not match new password');
@@ -270,7 +270,7 @@ router.post('/userresetpassword', routePermission.ensureUser, [
 router.post('/completeaccount', upload.single('signature'), [
 	check('fName', 'First Name must be less than 30 characters long').isLength({max: 30}), //fName length
 	check('lName', 'Last Name must be less than 30 characters long').isLength({max: 30}), //lName length
-	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
+	check('password', 'Password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.password) {
 			throw new Error('Password confirmation does not match password');

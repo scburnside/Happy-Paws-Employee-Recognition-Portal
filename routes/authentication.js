@@ -131,7 +131,7 @@ router.post('/confirmsq', function(req, res){
 
 // Post route to reset forgotten pw to new pw
 router.post('/resetpw', [
-	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check new password length
+	check('password', 'Password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check new password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.password) {
 			throw new Error('Password confirmation does not match password');
@@ -187,7 +187,7 @@ router.post('/resetpw', [
 // Post route for new user registration
 router.post('/register', upload.single('signature'), [
 	check('email', 'Invalid Email').isEmail(), //check email format
-	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
+	check('password', 'Password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.password) {
 			throw new Error('Password confirmation does not match password');
