@@ -93,10 +93,7 @@
 
         // Set chart options
         var options = {'title':'Departmental Participation',
-                       'width':800,
-                       'height':450,
                        'titleTextStyle': {color: '#224E7A'},
-                       'fontSize': '16',
                        legend: {textStyle: {color: '#224E7A'}},
                        'colors': ['#659DBD','#7b2323'],
                        };
@@ -105,6 +102,11 @@
         var chart = new google.visualization.PieChart(document.getElementById('pieChartDiv'));
         chart.draw(data, options);
       }
+
+       $(window).resize(function(){
+            drawPieChart();
+        });
+
     </script>
   </head> 
 
@@ -139,7 +141,7 @@
         </nav>  
 
     <!-- <Div that holds the pie chart -->
-    <div id="pieChartDiv"></div>  
+    <div id="pieChartDiv" class="chart"></div>  
 
     <div class="csvbutton">
         <a id="export" class="btn btn-custom2" href="javascript:void(0);" onclick="ConvertToCSV()">Export CSV File</a>
