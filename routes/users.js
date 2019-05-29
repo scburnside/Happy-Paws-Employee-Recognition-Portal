@@ -259,7 +259,7 @@ router.post('/userresetpassword', routePermission.ensureUser, [
 				})
 			} 
 		} else{ //if it does not match
-			req.flash('danger', 'Old password is incorrect.');
+			req.flash('warning', 'Old password is incorrect.');
 			res.redirect('/users/userresetpassword');
 		}
 	})

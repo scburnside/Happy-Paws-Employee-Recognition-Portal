@@ -92,7 +92,7 @@ router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
 				var user_data = results[0];
 				res.render('confirmsq', {page, user_data});
 			} else { //if account does not exist, display error
-				req.flash('danger', 'There is no admin account with that username.')
+				req.flash('warning', 'No admin account associated with that username.')
 				res.redirect('/forgotpw');
 			}
 		})
@@ -107,7 +107,7 @@ router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
 				var user_data = results[0];
 				res.render('confirmsq', {page, user_data});
 			} else { //if account does not exist, display error
-				req.flash('danger', 'There is no user account with that email.')
+				req.flash('warning', 'No user account associated with that email.')
 				res.redirect('/forgotpw');
 			}
 		})
@@ -124,7 +124,7 @@ router.post('/confirmsq', function(req, res){
 		}
 		res.render('resetpw', {page, user_data: req.body});
 	} else {
-		req.flash('danger', 'Incorrect answer.')
+		req.flash('warning', 'Incorrect answer.')
 		res.redirect('/forgotpw');
 	}
 })
