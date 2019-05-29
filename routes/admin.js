@@ -323,7 +323,9 @@ router.get('/createadminaccount', routePermission.ensureAdmin, function(req, res
 })
 
 // Post route for Creating New Admin Account
-router.post('/createadminaccount', routePermission.ensureAdmin, upload.none(), [], function(req, res){
+router.post('/createadminaccount', routePermission.ensureAdmin, upload.none(), [
+	check('userName', 'UserName must be less than 30 characters long').isLength({max: 30}), //userName length
+], function(req, res){
 
 	const err = validationResult(req); //get the errors
 	const { userName, password} = req.body; //bring in body parameters 
