@@ -90,22 +90,23 @@
 
         // Set chart options
         var options = {'title':'Awards Created by Award Type',
-                        'width': '1000',
-                        'height':'450',
                         'titleTextStyle': {color: '#224E7A'},
-                        'fontSize': '16',
                         'colors': ['#659DBD'],
                         hAxis: {textStyle: {color: '#224E7A'}},
                         vAxis: {textStyle: {color: '#224E7A'}},
                         legend: {textStyle: {color: '#224E7A'}},
-                        chartArea: {backgroundColor: {fill: '#FDF7E4',
-                        width: '1000', height: '450', bottom:'5%'}
+                        chartArea: {backgroundColor: {fill: '#FDF7E4'}
                             }};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('barChartDiv'));
         chart.draw(data, options);
       }
+
+       $(window).resize(function(){
+            drawChart();
+        });
+
     </script>
   </head> 
 
@@ -140,7 +141,7 @@
       </nav>        
   
   <!-- <Div that holds the bar chart -->
-  <div id="barChartDiv"></div>
+  <div id="barChartDiv" class="chart"></div>
 
   <div class="csvbutton">
       <a id="export" class="btn btn-custom2" href="javascript:void(0);" onclick="ConvertToCSV()">Export CSV File</a>
