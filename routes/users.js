@@ -195,7 +195,11 @@ function(req, res){
 	const err = validationResult(req); //get the errors
 	const { fName, lName, title, department } = req.body; //bring in body parameters
 	if(!err.isEmpty()){ 
-		//TODO  ERROR Handling for last names lentgh constraints
+		var errors = err.array();
+		res.render('usereditprofile', {
+			errors: errors, 
+			page: {title: 'Edit Profile'}
+		});
     } else{
 		var mysql = req.app.get('mysql');
 		var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
