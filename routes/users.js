@@ -187,20 +187,29 @@ router.get('/userresetpassword', routePermission.ensureUser, function(req, res){
 })
 
 // Post route for updating user profile
-router.post('/usereditprofile', routePermission.ensureUser, function(req, res){
+router.post('/usereditprofile', routePermission.ensureUser, [
+	check('fName', 'First Name must be less than 30 characters long').isLength({max: 30}), //fName length
+    check('lName', 'Last Name must be less than 30 characters long').isLength({max: 30}), //lName length
+],
+function(req, res){
+	const err = validationResult(req); //get the errors
 	const { fName, lName, title, department } = req.body; //bring in body parameters
-	var mysql = req.app.get('mysql');
-	var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
-	var inserts = [fName, lName, title, department, req.user.userId];
-	sql = mysql.pool.query(query, inserts, function(err, results, fields){
-		if(err){
-			res.write(JSON.stringify(error));
-			res.end();
-		}else{
-			req.flash('success', 'Your profile has been updated')
-			res.redirect('/users/usermyprofile');
-		}
-	})
+	if(!err.isEmpty()){ 
+		//TODO  ERROR Handling for last names lentgh constraints
+    } else{
+		var mysql = req.app.get('mysql');
+		var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
+		var inserts = [fName, lName, title, department, req.user.userId];
+		sql = mysql.pool.query(query, inserts, function(err, results, fields){
+			if(err){
+				res.write(JSON.stringify(error));
+				res.end();
+			}else{
+				req.flash('success', 'Your profile has been updated')
+				res.redirect('/users/usermyprofile');
+			}
+		})
+	}
 })
 
 // Post route for changing user password
@@ -255,6 +264,8 @@ router.post('/userresetpassword', routePermission.ensureUser, [
 
 // Post route for completing user registration
 router.post('/completeaccount', upload.single('signature'), [
+	check('fName', 'First Name must be less than 30 characters long').isLength({max: 30}), //fName length
+	check('lName', 'Last Name must be less than 30 characters long').isLength({max: 30}), //lName length
 	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.password) {

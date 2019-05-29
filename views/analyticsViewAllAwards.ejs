@@ -101,36 +101,41 @@
 
   <br>
 
-<table id="adminViewAllAwards" class="table table-striped table-curved table-hover table table-sm" style="width:100%">
-    <thead class ="datatablethead">  
-        <tr>
-            <th>Award Type </th>
-            <th>Award Id</th>
-            <th>Date Created</th>
-            <th>Creator</th> 
-            <th>Department</th>
-            <th>Recipient </th>
-        </tr>
-    </thead>
-    <tbody>
-        <% awards.forEach(function(award)  { %>
+
+<% if(awards.length == 0){ %>
+    <p>No Awards to display</p>
+<% } else{ %>
+    <table id="adminViewAllAwards" class="table table-striped table-curved table-hover table table-sm" style="width:100%">
+        <thead class ="datatablethead">  
             <tr>
-                <td><%= award.awardType %></td>
-                <td><%= award.awardId %></td>
-                <td><%= award.dateCreated %></td>
-                <td><%= award.fName %> <%= award.lName %> </td>
-                <td><%= award.department %></td>
-                <td><%= award.to_fName %> <%= award.to_lName %> </td>
+                <th>Award Type </th>
+                <th>Award Id</th>
+                <th>Date Created</th>
+                <th>Creator</th> 
+                <th>Department</th>
+                <th>Recipient </th>
             </tr>
-        <% }) %>
-    </tbody>
-</table> 
+        </thead>
+        <tbody>
+            <% awards.forEach(function(award)  { %>
+                <tr>
+                    <td><%= award.awardType %></td>
+                    <td><%= award.awardId %></td>
+                    <td><%= award.dateCreated %></td>
+                    <td><%= award.fName %> <%= award.lName %> </td>
+                    <td><%= award.department %></td>
+                    <td><%= award.to_fName %> <%= award.to_lName %> </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table> 
+<% } %>
 
 <br>
 <div class="csvbuttonTable">
         <a id="export" class="btn btn-custom2" href="javascript:void(0);" onclick="ConvertToCSV()"><i class='fas fa-file-export'></i> Export CSV File</a>
     </div>
 
-<a class="btn btn-custom1 btn-lg" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
+<a class="btn btn-custom1 btn-md" href="/users/admin/adminmenu" role="button">Back to Admin Main Menu</a><br><br>
 </body>
 <% include partials/footer %>
