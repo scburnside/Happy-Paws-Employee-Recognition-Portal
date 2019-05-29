@@ -115,45 +115,35 @@ router.post('/edituseraccount/:id', routePermission.ensureAdmin, upload.none(),[
 ], function(req, res){
 	const err = validationResult(req); //get the errors
 	const { fName, lName, title, department } = req.body; //bring in body parameters
-	if(!err.isEmpty())
-	{ 
+	if(!err.isEmpty()){ 
 		var page = { title: "Edit User Account"}; 
 		var mysql = req.app.get("mysql");
 		var query = "SELECT * FROM user WHERE userId = ?";
 		var inserts = [req.params.id];
-		sql = mysql.pool.query(query, inserts, function(sqlerr, results, fields)
-		{
-			if(sqlerr)
-			{
+		sql = mysql.pool.query(query, inserts, function(sqlerr, results, fields){
+			if(sqlerr){
 				console.log('Error in Updating the User Table');
 				next(sqlerr);
-				return;
-			}
-			else
-			{
+				return;}
+			else{
 				var errors = err.array();
-					res.render('edituseraccount', 
-					{
-						errors: errors, 
-						page: {title: 'Edit User Account'},
-						user:results[0]
-					});
+				res.render('edituseraccount',{
+					errors: errors, 
+					page: {title: 'Edit User Account'},
+					user:results[0]
+				});
 			}
 		});
 	} else{
-
 		var mysql = req.app.get('mysql');
 		var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
 		var inserts = [fName, lName, title, department, req.params.id];
-		sql = mysql.pool.query(query, inserts, function(err, results, fields)
-		{
-			if(err)
-			{
+		sql = mysql.pool.query(query, inserts, function(err, results, fields){
+			if(err){
 				console.log(JSON.stringify(error));
 				res.write(JSON.stringify(error));
-				res.end();
-			}else
-			{
+				res.end();}
+			else{
 				req.flash('success', 'The User Account Has Been Updated!')
 				res.redirect('/users/admin/manageuseraccounts'); //Go back to manage user accounts to see update in table
 				//res.status(202).end();
@@ -277,23 +267,47 @@ router.delete('/manageadminaccounts/:id', routePermission.ensureAdmin, function(
 })
 
 // Post route for Updating Admin Information
-router.post('/editadminaccount/:id', routePermission.ensureAdmin, function(req, res){
+router.post('/editadminaccount/:id', routePermission.ensureAdmin, [
+	check('userName', 'UserName must be less than 30 characters long').isLength({max: 30}), //userName length
+], function(req, res){
+	const err = validationResult(req); //get the errors
 	const { userName, title, department } = req.body; //bring in body parameters
-	var mysql = req.app.get('mysql');
-	var query = "UPDATE admin SET userName=?, title=?, department=? WHERE adminId=?";
-	var inserts = [userName, title, department, req.params.id];
-	sql = mysql.pool.query(query, inserts, function(err, results, fields){
-		if(err){
-			console.log(JSON.stringify(error));
-			res.write(JSON.stringify(error));
-			res.end();
-		}else{
-			req.flash('success', 'Admin Account Has Been Updated!')
-			res.redirect('/users/admin/manageadminaccounts'); //Go back to manage user accounts to see update in table
-			//res.status(202).end();
-		}
-	})
-})
+	if(!err.isEmpty()){ 
+        var page = { title: "Edit Admin Account"}; 
+        var mysql = req.app.get("mysql");
+        var query = "SELECT * FROM admin WHERE adminId = ?";
+        var inserts = [req.params.id];
+        sql = mysql.pool.query(query, inserts, function(sqlerr, results, fields){
+            if(sqlerr){
+                console.log('Error in Updating the AdminTable');
+                next(sqlerr);
+                return;}
+            else{
+                var errors = err.array();
+                res.render('editadminaccount',{
+                    errors: errors, 
+                    page: {title: 'Edit An Admin Account'},
+                    admin:results[0]
+                });
+            }
+        });
+    } else{
+		var mysql = req.app.get('mysql');
+		var query = "UPDATE admin SET userName=?, title=?, department=? WHERE adminId=?";
+		var inserts = [userName, title, department, req.params.id];
+		sql = mysql.pool.query(query, inserts, function(err, results, fields){
+			if(err){
+				console.log(JSON.stringify(error));
+				res.write(JSON.stringify(error));
+				res.end();
+			}else{
+				req.flash('success', 'Admin Account Has Been Updated!')
+				res.redirect('/users/admin/manageadminaccounts'); //Go back to manage user accounts to see update in table
+				//res.status(202).end();
+			}
+		})
+	}
+});
 
 
 // Route for 1 Admin (to Update Admin Info)
