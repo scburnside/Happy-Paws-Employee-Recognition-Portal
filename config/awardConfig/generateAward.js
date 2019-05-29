@@ -6,8 +6,6 @@ const latex = require('node-latex'); //node-latex middleware
 // then it uses the node-latex middleware to generate a pdf version of the award certificate from the .tex latex file
 function generateAward(awardInfo, cb){
 
-    //awardInfo.userSig = awardInfo.userSig.replace(/\\/g,"/"); //we have to replace backslashes for it to work in the .tex template file
-
     var data_filepath = proj_dir + "config/awardConfig/awardData.csv"; //file path for award data .csv file
 
     // put together the date for the .csv file
@@ -28,7 +26,7 @@ function generateAward(awardInfo, cb){
         pdf.pipe(output)
         pdf.on('error', err => console.error(err))
         pdf.on('finish', () => {
-            console.log('PDF generated!');
+            //console.log('PDF generated!');
             cb();
         })
     })

@@ -32,7 +32,7 @@ const fileFilter = function(req, file, cb){
 const upload = multer({storage: storage, fileFilter: fileFilter});
 
 // Route to complete user registration (if new account created by admin)
-router.get('/completeaccount', function(req, res){
+router.get('/completeaccount', routePermission.isComplete, function(req, res){
 	var page = {
 		title: "Complete Registration"
 	}
@@ -95,13 +95,7 @@ router.post('/useraddaward', routePermission.ensureUser, function(req, res){
 			createAward(req, awardInfo, function(){
 				req.flash('success', 'Award has been successfully created and sent to the email provided!');
 			 	res.redirect('/users/userviewawards');
-			});
-
-			//send the award
-			// sendAward(awardInfo, function(){
-			// 	req.flash('success', 'Award has been successfully created and sent to the email provided!')
-			// 	res.redirect('/users/userviewawards');
-			// })
+			});		
 		}
 	})
 })
@@ -126,7 +120,7 @@ function createAward(req, awardInfo, cb){
 					if(err){ console.log(err); }
 					else { 
 						// we're all done and now we call the callback function
-						console.log("Email sent!");
+						//console.log("Email sent!");
 						cb();
 					 }
 				});
@@ -195,7 +189,11 @@ function(req, res){
 	const err = validationResult(req); //get the errors
 	const { fName, lName, title, department } = req.body; //bring in body parameters
 	if(!err.isEmpty()){ 
-		//TODO  ERROR Handling for last names lentgh constraints
+		var errors = err.array();
+		res.render('usereditprofile', {
+			errors: errors, 
+			page: {title: 'Edit Profile'}
+		});
     } else{
 		var mysql = req.app.get('mysql');
 		var query = "UPDATE user SET fName=?, lName=?, title=?, department=? WHERE userId=?";
@@ -212,9 +210,9 @@ function(req, res){
 	}
 })
 
-// Post route for changing user password
+// Post route for changing user password 
 router.post('/userresetpassword', routePermission.ensureUser, [
-	check('newpassword', 'New password must be at least 6 characters long').isLength({min: 6}), //check new password length
+	check('newpassword', 'New password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check new password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.newpassword) {
 			throw new Error('Password confirmation does not match new password');
@@ -255,7 +253,7 @@ router.post('/userresetpassword', routePermission.ensureUser, [
 				})
 			} 
 		} else{ //if it does not match
-			req.flash('danger', 'Old password is incorrect.');
+			req.flash('warning', 'Old password is incorrect.');
 			res.redirect('/users/userresetpassword');
 		}
 	})
@@ -266,7 +264,7 @@ router.post('/userresetpassword', routePermission.ensureUser, [
 router.post('/completeaccount', upload.single('signature'), [
 	check('fName', 'First Name must be less than 30 characters long').isLength({max: 30}), //fName length
 	check('lName', 'Last Name must be less than 30 characters long').isLength({max: 30}), //lName length
-	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
+	check('password', 'Password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.password) {
 			throw new Error('Password confirmation does not match password');

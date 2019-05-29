@@ -92,7 +92,7 @@ router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
 				var user_data = results[0];
 				res.render('confirmsq', {page, user_data});
 			} else { //if account does not exist, display error
-				req.flash('danger', 'There is no admin account with that username.')
+				req.flash('warning', 'No admin account associated with that username.')
 				res.redirect('/forgotpw');
 			}
 		})
@@ -107,7 +107,7 @@ router.post('/forgotpw', routePermission.redirectMainMenu, function(req, res){
 				var user_data = results[0];
 				res.render('confirmsq', {page, user_data});
 			} else { //if account does not exist, display error
-				req.flash('danger', 'There is no user account with that email.')
+				req.flash('warning', 'No user account associated with that email.')
 				res.redirect('/forgotpw');
 			}
 		})
@@ -124,14 +124,14 @@ router.post('/confirmsq', function(req, res){
 		}
 		res.render('resetpw', {page, user_data: req.body});
 	} else {
-		req.flash('danger', 'Incorrect answer.')
+		req.flash('warning', 'Incorrect answer.')
 		res.redirect('/forgotpw');
 	}
 })
 
 // Post route to reset forgotten pw to new pw
 router.post('/resetpw', [
-	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check new password length
+	check('password', 'Password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check new password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.password) {
 			throw new Error('Password confirmation does not match password');
@@ -187,7 +187,7 @@ router.post('/resetpw', [
 // Post route for new user registration
 router.post('/register', upload.single('signature'), [
 	check('email', 'Invalid Email').isEmail(), //check email format
-	check('password', 'Password must be at least 6 characters long').isLength({min: 6}), //check password length
+	check('password', 'Password must be between 6-30 characters long').isLength({min: 6, max: 30}), //check password length
 	check('password2').custom((value, { req }) => {  //ensure password confirmation matches
 		if (value !== req.body.password) {
 			throw new Error('Password confirmation does not match password');
@@ -264,12 +264,6 @@ router.post('/login', function(req, res, next){
 		})(req, res, next);
 	}
 });
-
-
-// Function for authorizing route access
-function redirectLogin(req, res, next){
-
-}
 
 
 module.exports = router;

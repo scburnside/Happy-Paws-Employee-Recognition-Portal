@@ -10,12 +10,12 @@ module.exports ={
                     return;
                 }
             }else{
-                req.flash('danger', 'Must be logged in as an admin to go there!');
+                req.flash('warning', 'Access denied. You are not an admin.');
                 res.redirect('/users/usermainmenu');
                 return;
             }
         }
-        req.flash('danger', 'Must be logged in as an admin!');
+        req.flash('warning', 'Access denied. Please login as an admin.');
         res.redirect('/login');
     },
     ensureUser: function(req, res, next){
@@ -29,12 +29,23 @@ module.exports ={
                     return;
                 }
             }else{
-                req.flash('danger', "Admins can't go there!");
+                req.flash('warning', "Access denied. You are not a user.");
                 res.redirect('/users/admin/adminmenu');
                 return;
             }
         }
-        req.flash('danger', 'Must be logged in as a user!');
+        req.flash('warning', 'Access denied. Please login.');
+        res.redirect('/login');
+    },
+    isComplete: function(req, res, next){
+        if(req.isAuthenticated()){
+            if(req.user.isAdmin && req.user.newAccount){
+                return next();
+            } else if(!req.user.isAdmin && req.user.accountComplete){
+                return next();
+            }
+        }
+
         res.redirect('/login');
     },
     redirectMainMenu: function(req, res, next){

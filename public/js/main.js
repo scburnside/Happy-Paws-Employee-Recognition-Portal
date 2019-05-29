@@ -8,6 +8,6 @@ $(document).ready(function() {
       }
       setTimeout(function() {
         $this.html($this.data('original-text'));
-      }, 8000);
+      }, 9000);
     });
   })
