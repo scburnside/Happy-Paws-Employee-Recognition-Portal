@@ -266,10 +266,4 @@ router.post('/login', function(req, res, next){
 });
 
 
-// Function for authorizing route access
-function redirectLogin(req, res, next){
-
-}
-
-
 module.exports = router;

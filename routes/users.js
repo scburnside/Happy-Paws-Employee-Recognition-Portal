@@ -95,13 +95,7 @@ router.post('/useraddaward', routePermission.ensureUser, function(req, res){
 			createAward(req, awardInfo, function(){
 				req.flash('success', 'Award has been successfully created and sent to the email provided!');
 			 	res.redirect('/users/userviewawards');
-			});
-
-			//send the award
-			// sendAward(awardInfo, function(){
-			// 	req.flash('success', 'Award has been successfully created and sent to the email provided!')
-			// 	res.redirect('/users/userviewawards');
-			// })
+			});		
 		}
 	})
 })
@@ -126,7 +120,7 @@ function createAward(req, awardInfo, cb){
 					if(err){ console.log(err); }
 					else { 
 						// we're all done and now we call the callback function
-						console.log("Email sent!");
+						//console.log("Email sent!");
 						cb();
 					 }
 				});
