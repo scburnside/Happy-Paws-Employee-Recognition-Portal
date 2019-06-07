@@ -17,7 +17,7 @@ Admin features include:
 - Analytics & reporting feature with customized bar charts and pie graphs that allow admins to understand how users engage with the portal. 
 - Advanced table displays with column sorting, pagination, search, and option to export data to a CSV file for download and sharing. 
 
-## Please view userguide.pdf for more detailed instructions, screenshots, and the db schema
+**Please view [userguide.pdf](/UserGuide.pdf) for more detailed instructions, screenshots, and the db schema**
 
 The live site can be viewed at http://138.68.48.136:3000/
 
